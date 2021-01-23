@@ -11,11 +11,17 @@ namespace MVC_Project.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class titleauthor
     {
+        [Display(Name ="Author's ID")]
         public string au_id { get; set; }
+
+        [Display(Name ="Title's ID")]
         public string title_id { get; set; }
+
+        
         public Nullable<byte> au_ord { get; set; }
         public Nullable<int> royaltyper { get; set; }
     

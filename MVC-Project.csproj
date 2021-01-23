@@ -128,6 +128,11 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\authorsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\RoyschedsController.cs" />
+    <Compile Include="Controllers\SalesController.cs" />
+    <Compile Include="Controllers\StoresController.cs" />
+    <Compile Include="Controllers\TitleauthorsController.cs" />
+    <Compile Include="Controllers\TitlesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -239,6 +244,31 @@
     <Content Include="Views\authors\Details.cshtml" />
     <Content Include="Views\authors\Edit.cshtml" />
     <Content Include="Views\authors\Index.cshtml" />
+    <Content Include="Views\Royscheds\Create.cshtml" />
+    <Content Include="Views\Royscheds\Delete.cshtml" />
+    <Content Include="Views\Royscheds\Details.cshtml" />
+    <Content Include="Views\Royscheds\Edit.cshtml" />
+    <Content Include="Views\Royscheds\Index.cshtml" />
+    <Content Include="Views\Sales\Create.cshtml" />
+    <Content Include="Views\Sales\Delete.cshtml" />
+    <Content Include="Views\Sales\Details.cshtml" />
+    <Content Include="Views\Sales\Edit.cshtml" />
+    <Content Include="Views\Sales\Index.cshtml" />
+    <Content Include="Views\Stores\Create.cshtml" />
+    <Content Include="Views\Stores\Delete.cshtml" />
+    <Content Include="Views\Stores\Details.cshtml" />
+    <Content Include="Views\Stores\Edit.cshtml" />
+    <Content Include="Views\Stores\Index.cshtml" />
+    <Content Include="Views\Titleauthors\Create.cshtml" />
+    <Content Include="Views\Titleauthors\Delete.cshtml" />
+    <Content Include="Views\Titleauthors\Details.cshtml" />
+    <Content Include="Views\Titleauthors\Edit.cshtml" />
+    <Content Include="Views\Titleauthors\Index.cshtml" />
+    <Content Include="Views\Titles\Create.cshtml" />
+    <Content Include="Views\Titles\Delete.cshtml" />
+    <Content Include="Views\Titles\Details.cshtml" />
+    <Content Include="Views\Titles\Edit.cshtml" />
+    <Content Include="Views\Titles\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

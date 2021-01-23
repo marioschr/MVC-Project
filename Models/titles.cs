@@ -11,7 +11,8 @@ namespace MVC_Project.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class titles
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,15 +22,39 @@ namespace MVC_Project.Models
             this.titleauthor = new HashSet<titleauthor>();
         }
     
+        [Required]
+        [Display(Name ="title ID")]
+        [RegularExpression("\\w\\w\\d\\d\\d\\d",
+            ErrorMessage = "Title's ID is not valid. (Example: \"BU1234\")")]
         public string title_id { get; set; }
+
+        [Required]
+        [Display(Name ="Title")]
         public string title { get; set; }
+
+        [Display(Name = "Type")]
         public string type { get; set; }
+
+        [Display(Name = "Publisher Name")]
         public string pub_id { get; set; }
+
+        [Display(Name = "Price")]
         public Nullable<decimal> price { get; set; }
+
+        [Display(Name = "In Advance")]
         public Nullable<decimal> advance { get; set; }
+
+        [Display(Name = "Royalty")]
         public Nullable<int> royalty { get; set; }
+
+        [Display(Name = "Sales per Year")]
         public Nullable<int> ytd_sales { get; set; }
+
+        [Display(Name ="Notes")]
         public string notes { get; set; }
+
+        [Required]
+        [Display(Name = "Publication Date")]
         public System.DateTime pubdate { get; set; }
     
         public virtual publishers publishers { get; set; }
