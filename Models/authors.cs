@@ -26,12 +26,15 @@ namespace MVC_Project.Models
         [RegularExpression("\\d\\d\\d"+"-"+"\\d\\d"+"-"+"\\d\\d\\d\\d", ErrorMessage = "Author's ID is not valid. (Example: \"123-45-6789\")")]
         public string au_id { get; set; }
 
+        [Required]
         [Display(Name = "Last name")]
         public string au_lname { get; set; }
 
+        [Required]
         [Display(Name = "First name")]
         public string au_fname { get; set; }
 
+        [Required]
         [Display(Name = "Phone Number")]
         public string phone { get; set; }
 
