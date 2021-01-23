@@ -38,7 +38,7 @@ namespace MVC_Project.Controllers
         // GET: authors/Create
         public ActionResult Create()
         {
-            return View();
+            return View(new Models.authors());
         }
 
         // POST: authors/Create
@@ -51,7 +51,15 @@ namespace MVC_Project.Controllers
             if (ModelState.IsValid)
             {
                 db.authors.Add(authors);
-                db.SaveChanges();
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    return RedirectToAction("Create");
+                }
                 return RedirectToAction("Index");
             }
 
