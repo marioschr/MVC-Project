@@ -21,8 +21,9 @@ namespace MVC_Project.Models
             this.titleauthor = new HashSet<titleauthor>();
         }
 
-        [Required(ErrorMessage = "Authors ID is Required. It cannot be empty")]
-        [Display(Name ="Authors ID")]
+        [Required]
+        [Display(Name ="Author's ID")]
+        [RegularExpression("\\d\\d\\d"+"-"+"\\d\\d"+"-"+"\\d\\d\\d\\d", ErrorMessage = "Author's ID is not valid. (Example: \"123-45-6789\")")]
         public string au_id { get; set; }
 
         [Display(Name = "Last name")]
