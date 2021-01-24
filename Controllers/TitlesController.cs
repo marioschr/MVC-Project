@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 using MVC_Project.Models;
@@ -28,6 +29,7 @@ namespace MVC_Project.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            Console.WriteLine("alex   --- id: " + id);
             titles titles = db.titles.Find(id);
             if (titles == null)
             {
