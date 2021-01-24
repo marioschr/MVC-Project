@@ -25,6 +25,7 @@ namespace MVC_Project.Models
         public string ord_num { get; set; }
 
         [Required]
+        [DataType(DataType.Date)]
         [Display(Name ="Order Date")]
         public System.DateTime ord_date { get; set; }
         
@@ -39,7 +40,8 @@ namespace MVC_Project.Models
         [Required]
         [Display(Name = "Title")]
         public string title_id { get; set; }
-    
+
+        [Display(Name = "Store")]
         public virtual stores stores { get; set; }
 
         public virtual titles titles { get; set; }

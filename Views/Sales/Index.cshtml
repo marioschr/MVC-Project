@@ -1,57 +1,57 @@
 ﻿@model IEnumerable<MVC_Project.Models.sales>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Sales";
 }
 
-<h2>Index</h2>
+<h2>List of Sales</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.ord_date)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.qty)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.payterms)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.stores.stor_name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.titles.title)
-        </th>
-        <th></th>
-    </tr>
+    <a class="btn btn-primary" href=@Url.Action("Create") role="button">Add new Sale</a>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ord_date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.qty)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.payterms)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.stores.stor_name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.titles.title)
+            </th>
+            <th></th>
+        </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.ord_date)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.qty)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.payterms)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.stores.stor_name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.titles.title)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { item.stor_id, item.ord_num, item.title_id }) |
-            @Html.ActionLink("Details", "Details", new { item.stor_id, item.ord_num, item.title_id }) |
-            @Html.ActionLink("Delete", "Delete", new { item.stor_id, item.ord_num, item.title_id })
-        </td>
-    </tr>
-}
-
-</table>
+        @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ord_date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.qty)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.payterms)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.stores.stor_name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.titles.title)
+                </td>
+                <td>
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                        <a class="btn btn-primary" href=@Url.Action("Edit", new {item.stor_id, item.ord_num, item.title_id}) role="button">Edit</a>
+                        <a class="btn btn-primary" href=@Url.Action("Details", new {item.stor_id, item.ord_num, item.title_id}) role="button">Details</a>
+                        <a class="btn btn-primary" href=@Url.Action("Delete", new {item.stor_id, item.ord_num, item.title_id}) role="button">Delete</a>
+                    </div>
+                </td>
+            </tr>
+        }
+    </table>
