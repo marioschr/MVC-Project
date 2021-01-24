@@ -13,7 +13,8 @@ namespace MVC_Project.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Web.Mvc;
+
     public partial class pub_info
     {
         [Display(Name = "Publisher's ID")]
@@ -25,5 +26,11 @@ namespace MVC_Project.Models
         public string pr_info { get; set; }
     
         public virtual publishers publishers { get; set; }
+    }
+    public static class HtmlExtensions {
+        public static MvcHtmlString Image(this HtmlHelper html, byte[] image) {
+            var img = String.Format("data:image/jpg;base64,{0}", Convert.ToBase64String(image));
+            return new MvcHtmlString("<img src='" + img + "' />");
+        }
     }
 }

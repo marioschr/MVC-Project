@@ -1,4 +1,6 @@
-﻿@model IEnumerable<MVC_Project.Models.pub_info>
+﻿@using System.Drawing
+@using MVC_Project.Models
+@model IEnumerable<MVC_Project.Models.pub_info>
 
 @{
     ViewBag.Title = "Index";
@@ -26,7 +28,7 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.logo)
+            @Html.Image(item.logo)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.pr_info)
