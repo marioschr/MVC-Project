@@ -49,10 +49,9 @@
         <dd>
             @Html.DisplayFor(model => model.titles.title)
         </dd>
-
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Edit", "Edit", new { Model.stor_id, Model.ord_num, Model.title_id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

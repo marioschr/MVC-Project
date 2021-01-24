@@ -22,13 +22,13 @@ namespace MVC_Project.Controllers
         }
 
         // GET: Sales/Details/5
-        public ActionResult Details(string id)
+        public ActionResult Details(string stor_id, string ord_num, string title_id)
         {
-            if (id == null)
+            if (ord_num == null || title_id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            sales sales = db.sales.Find(id);
+            sales sales = db.sales.Find(stor_id, ord_num, title_id);
             if (sales == null)
             {
                 return HttpNotFound();
@@ -64,13 +64,12 @@ namespace MVC_Project.Controllers
         }
 
         // GET: Sales/Edit/5
-        public ActionResult Edit(string id)
-        {
-            if (id == null)
-            {
+        public ActionResult Edit(string stor_id, string ord_num, string title_id) {
+            if (ord_num == null) {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            sales sales = db.sales.Find(id);
+            sales sales = db.sales.Find(stor_id, ord_num, title_id);
+
             if (sales == null)
             {
                 return HttpNotFound();
@@ -99,13 +98,13 @@ namespace MVC_Project.Controllers
         }
 
         // GET: Sales/Delete/5
-        public ActionResult Delete(string id)
+        public ActionResult Delete(string stor_id, string ord_num, string title_id)
         {
-            if (id == null)
+            if (stor_id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            sales sales = db.sales.Find(id);
+            sales sales = db.sales.Find(stor_id, ord_num, title_id);
             if (sales == null)
             {
                 return HttpNotFound();
@@ -116,9 +115,9 @@ namespace MVC_Project.Controllers
         // POST: Sales/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id)
+        public ActionResult DeleteConfirmed(string stor_id, string ord_num, string title_id)
         {
-            sales sales = db.sales.Find(id);
+            sales sales = db.sales.Find(stor_id, ord_num, title_id);
             db.sales.Remove(sales);
             db.SaveChanges();
             return RedirectToAction("Index");

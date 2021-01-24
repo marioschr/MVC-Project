@@ -12,6 +12,7 @@ namespace MVC_Project.Models
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
     public partial class sales
     {
@@ -32,17 +33,15 @@ namespace MVC_Project.Models
         public short qty { get; set; }
 
         [Required]
-        [Display(Name ="Payterms")]
+        [Display(Name ="Payment Terms")]
         public string payterms { get; set; }
 
         [Required]
         [Display(Name = "Title")]
         public string title_id { get; set; }
     
-        [Display(Name ="Store")]
         public virtual stores stores { get; set; }
 
-        [Display(Name ="Title")]
         public virtual titles titles { get; set; }
     }
 }
