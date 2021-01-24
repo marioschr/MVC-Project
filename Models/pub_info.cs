@@ -7,13 +7,12 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System;
 using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 
 namespace MVC_Project.Models
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Web.Mvc;
 
     public partial class pub_info
     {
@@ -27,10 +26,14 @@ namespace MVC_Project.Models
     
         public virtual publishers publishers { get; set; }
     }
+
     public static class HtmlExtensions {
         public static MvcHtmlString Image(this HtmlHelper html, byte[] image) {
-            var img = String.Format("data:image/jpg;base64,{0}", Convert.ToBase64String(image));
-            return new MvcHtmlString("<img src='" + img + "' />");
+            if (image != null) {
+                var img = String.Format("data:image/jpg;base64,{0}", Convert.ToBase64String(image));
+                return new MvcHtmlString("<img src='" + img + "' />");
+            }
+            return new MvcHtmlString("");
         }
     }
 }

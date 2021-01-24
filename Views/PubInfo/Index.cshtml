@@ -31,7 +31,9 @@
             @Html.Image(item.logo)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.pr_info)
+            <div class="overflow-auto" style="max-height: 7em;max-width: 30em">
+                @Html.DisplayFor(modelItem => item.pr_info)
+            </div>
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.publishers.pub_name)
