@@ -28,26 +28,33 @@ namespace MVC_Project.Models
 
         [Required]
         [Display(Name = "Last name")]
+        [MaxLength(40)]
         public string au_lname { get; set; }
 
         [Required]
         [Display(Name = "First name")]
+        [MaxLength(20)]
         public string au_fname { get; set; }
 
         [Required]
         [Display(Name = "Phone Number")]
+        [MaxLength(12)]
         public string phone { get; set; }
 
         [Display(Name = "Address")]
+        [MaxLength(40)]
         public string address { get; set; }
 
         [Display(Name = "City")]
+        [MaxLength(20)]
         public string city { get; set; }
 
         [Display(Name = "State")]
+        [MaxLength(2)]
         public string state { get; set; }
 
         [Display(Name = "Zip Code")]
+        [MaxLength(5)]
         public string zip { get; set; }
 
         [Display(Name = "Contract")]

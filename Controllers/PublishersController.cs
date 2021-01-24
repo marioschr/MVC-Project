@@ -10,115 +10,112 @@ using MVC_Project.Models;
 
 namespace MVC_Project.Controllers
 {
-    public class AuthorsController : Controller
+    public class PublishersController : Controller
     {
         private pubsEntities db = new pubsEntities();
 
-        // GET: authors
+        // GET: Publishers
         public ActionResult Index()
         {
-            return View(db.authors.ToList());
+            var publishers = db.publishers.Include(p => p.pub_info);
+            return View(publishers.ToList());
         }
 
-        // GET: authors/Details/5
+        // GET: Publishers/Details/5
         public ActionResult Details(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            authors authors = db.authors.Find(id);
-            if (authors == null)
+            publishers publishers = db.publishers.Find(id);
+            if (publishers == null)
             {
                 return HttpNotFound();
             }
-            return View(authors);
+            return View(publishers);
         }
 
-        // GET: authors/Create
+        // GET: Publishers/Create
         public ActionResult Create()
         {
-            return View(new Models.authors());
+            ViewBag.pub_id = new SelectList(db.pub_info, "pub_id", "pr_info");
+            return View();
         }
 
-        // POST: authors/Create
+        // POST: Publishers/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "au_id,au_lname,au_fname,phone,address,city,state,zip,contract")] authors authors)
+        public ActionResult Create([Bind(Include = "pub_id,pub_name,city,state,country")] publishers publishers)
         {
             if (ModelState.IsValid)
             {
-                db.authors.Add(authors);
-                try
-                {
-                    db.SaveChanges();
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e);
-                    return RedirectToAction("Create");
-                }
+                db.publishers.Add(publishers);
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(authors);
+            ViewBag.pub_id = new SelectList(db.pub_info, "pub_id", "pr_info", publishers.pub_id);
+            return View(publishers);
         }
 
-        // GET: authors/Edit/5
+        // GET: Publishers/Edit/5
         public ActionResult Edit(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            authors authors = db.authors.Find(id);
-            if (authors == null)
+            publishers publishers = db.publishers.Find(id);
+            if (publishers == null)
             {
                 return HttpNotFound();
             }
-            return View(authors);
+            ViewBag.pub_id = new SelectList(db.pub_info, "pub_id", "pr_info", publishers.pub_id);
+            return View(publishers);
         }
 
-        // POST: authors/Edit/5
+        // POST: Publishers/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "au_id,au_lname,au_fname,phone,address,city,state,zip,contract")] authors authors)
+        public ActionResult Edit([Bind(Include = "pub_id,pub_name,city,state,country")] publishers publishers)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(authors).State = EntityState.Modified;
+                db.Entry(publishers).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(authors);
+            ViewBag.pub_id = new SelectList(db.pub_info, "pub_id", "pr_info", publishers.pub_id);
+            return View(publishers);
         }
 
-        // GET: authors/Delete/5
+        // GET: Publishers/Delete/5
         public ActionResult Delete(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            authors authors = db.authors.Find(id);
-            if (authors == null)
+            publishers publishers = db.publishers.Find(id);
+            if (publishers == null)
             {
                 return HttpNotFound();
             }
-            return View(authors);
+            return View(publishers);
         }
 
-        // POST: authors/Delete/5
+        // POST: Publishers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
         {
-            authors authors = db.authors.Find(id);
-            db.authors.Remove(authors);
+            publishers publishers = db.publishers.Find(id);
+            db.publishers.Remove(publishers);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

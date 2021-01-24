@@ -7,6 +7,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.ComponentModel.DataAnnotations;
+
 namespace MVC_Project.Models
 {
     using System;
@@ -14,8 +16,12 @@ namespace MVC_Project.Models
     
     public partial class pub_info
     {
+        [Display(Name = "Publisher's ID")]
+        [Required]
+        [MaxLength(4)]
         public string pub_id { get; set; }
         public byte[] logo { get; set; }
+
         public string pr_info { get; set; }
     
         public virtual publishers publishers { get; set; }

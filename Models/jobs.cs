@@ -7,6 +7,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.ComponentModel.DataAnnotations;
+
 namespace MVC_Project.Models
 {
     using System;
@@ -19,10 +21,21 @@ namespace MVC_Project.Models
         {
             this.employee = new HashSet<employee>();
         }
-    
+        [Display(Name = "Job ID")]
+        [Required]
+        [MaxLength(6)]
         public short job_id { get; set; }
+        [Display(Name = "Job Description")]
+        [Required]
+        [MaxLength(50)]
         public string job_desc { get; set; }
+        [Display(Name = "Min Level")]
+        [Required]
+        [Range(10,250)]
         public byte min_lvl { get; set; }
+        [Display(Name = "Min Level")]
+        [Required]
+        [Range(10, 250)]
         public byte max_lvl { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -7,20 +7,41 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.ComponentModel.DataAnnotations;
+
 namespace MVC_Project.Models
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class employee
-    {
+    public partial class employee {
+        [Display(Name = "Employee ID")]
+        [Required]
         public string emp_id { get; set; }
+        [Display(Name = "First Name")]
+        [Required]
+        [MaxLength(20)]
         public string fname { get; set; }
+        [Display(Name = "Middle Name Initial")]
+        [MaxLength(1)]
         public string minit { get; set; }
+        [Display(Name = "Last Name")]
+        [Required]
+        [MaxLength(30)]
         public string lname { get; set; }
+        [Display(Name = "Job ID")]
+        [Required]
+        [MaxLength(6)]
         public short job_id { get; set; }
+        [Display(Name = "Job Level")]
+        [MaxLength(3)]
         public Nullable<byte> job_lvl { get; set; }
+        [Display(Name = "Publisher's ID")]
+        [Required]
+        [MaxLength(4)]
         public string pub_id { get; set; }
+        [Display(Name = "Hire Date")]
+        [Required]
         public System.DateTime hire_date { get; set; }
     
         public virtual jobs jobs { get; set; }

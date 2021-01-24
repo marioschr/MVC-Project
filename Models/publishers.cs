@@ -7,6 +7,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.ComponentModel.DataAnnotations;
+
 namespace MVC_Project.Models
 {
     using System;
@@ -20,11 +22,23 @@ namespace MVC_Project.Models
             this.employee = new HashSet<employee>();
             this.titles = new HashSet<titles>();
         }
-    
+
+        [Display(Name = "Publisher's ID")]
+        [Required]
+        [MaxLength(4)]
+        [RegularExpression(@"99\d\d", ErrorMessage = "Publisher's ID is not valid. ID has to be of form 99xx)")]
         public string pub_id { get; set; }
+        [Display(Name = "Publisher's Name")]
+        [MaxLength(40)]
         public string pub_name { get; set; }
+        [Display(Name = "City")]
+        [MaxLength(20)]
         public string city { get; set; }
+        [Display(Name = "State")]
+        [MaxLength(2)]
         public string state { get; set; }
+        [Display(Name = "Country")]
+        [MaxLength(30)]
         public string country { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -10,115 +10,116 @@ using MVC_Project.Models;
 
 namespace MVC_Project.Controllers
 {
-    public class AuthorsController : Controller
+    public class EmployeesController : Controller
     {
         private pubsEntities db = new pubsEntities();
 
-        // GET: authors
+        // GET: Employees
         public ActionResult Index()
         {
-            return View(db.authors.ToList());
+            var employee = db.employee.Include(e => e.jobs).Include(e => e.publishers);
+            return View(employee.ToList());
         }
 
-        // GET: authors/Details/5
+        // GET: Employees/Details/5
         public ActionResult Details(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            authors authors = db.authors.Find(id);
-            if (authors == null)
+            employee employee = db.employee.Find(id);
+            if (employee == null)
             {
                 return HttpNotFound();
             }
-            return View(authors);
+            return View(employee);
         }
 
-        // GET: authors/Create
+        // GET: Employees/Create
         public ActionResult Create()
         {
-            return View(new Models.authors());
+            ViewBag.job_id = new SelectList(db.jobs, "job_id", "job_desc");
+            ViewBag.pub_id = new SelectList(db.publishers, "pub_id", "pub_name");
+            return View();
         }
 
-        // POST: authors/Create
+        // POST: Employees/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "au_id,au_lname,au_fname,phone,address,city,state,zip,contract")] authors authors)
+        public ActionResult Create([Bind(Include = "emp_id,fname,minit,lname,job_id,job_lvl,pub_id,hire_date")] employee employee)
         {
             if (ModelState.IsValid)
             {
-                db.authors.Add(authors);
-                try
-                {
-                    db.SaveChanges();
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e);
-                    return RedirectToAction("Create");
-                }
+                db.employee.Add(employee);
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(authors);
+            ViewBag.job_id = new SelectList(db.jobs, "job_id", "job_desc", employee.job_id);
+            ViewBag.pub_id = new SelectList(db.publishers, "pub_id", "pub_name", employee.pub_id);
+            return View(employee);
         }
 
-        // GET: authors/Edit/5
+        // GET: Employees/Edit/5
         public ActionResult Edit(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            authors authors = db.authors.Find(id);
-            if (authors == null)
+            employee employee = db.employee.Find(id);
+            if (employee == null)
             {
                 return HttpNotFound();
             }
-            return View(authors);
+            ViewBag.job_id = new SelectList(db.jobs, "job_id", "job_desc", employee.job_id);
+            ViewBag.pub_id = new SelectList(db.publishers, "pub_id", "pub_name", employee.pub_id);
+            return View(employee);
         }
 
-        // POST: authors/Edit/5
+        // POST: Employees/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "au_id,au_lname,au_fname,phone,address,city,state,zip,contract")] authors authors)
+        public ActionResult Edit([Bind(Include = "emp_id,fname,minit,lname,job_id,job_lvl,pub_id,hire_date")] employee employee)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(authors).State = EntityState.Modified;
+                db.Entry(employee).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(authors);
+            ViewBag.job_id = new SelectList(db.jobs, "job_id", "job_desc", employee.job_id);
+            ViewBag.pub_id = new SelectList(db.publishers, "pub_id", "pub_name", employee.pub_id);
+            return View(employee);
         }
 
-        // GET: authors/Delete/5
+        // GET: Employees/Delete/5
         public ActionResult Delete(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            authors authors = db.authors.Find(id);
-            if (authors == null)
+            employee employee = db.employee.Find(id);
+            if (employee == null)
             {
                 return HttpNotFound();
             }
-            return View(authors);
+            return View(employee);
         }
 
-        // POST: authors/Delete/5
+        // POST: Employees/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
         {
-            authors authors = db.authors.Find(id);
-            db.authors.Remove(authors);
+            employee employee = db.employee.Find(id);
+            db.employee.Remove(employee);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

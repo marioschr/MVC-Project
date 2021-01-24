@@ -30,12 +30,16 @@ namespace MVC_Project.Models
 
         [Required]
         [Display(Name ="Title")]
+        [MaxLength(80)]
         public string title { get; set; }
 
         [Display(Name = "Type")]
+        [Required]
+        [MaxLength(12)]
         public string type { get; set; }
 
         [Display(Name = "Publisher Name")]
+        [MaxLength(4)]
         public string pub_id { get; set; }
 
         [Display(Name = "Price")]
@@ -51,6 +55,7 @@ namespace MVC_Project.Models
         public Nullable<int> ytd_sales { get; set; }
 
         [Display(Name ="Notes")]
+        [MaxLength(200)]
         public string notes { get; set; }
 
         [Required]
