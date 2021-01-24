@@ -11,14 +11,24 @@ namespace MVC_Project.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class roysched
     {
+
+        [Display(Name ="Title ID")]
         public string title_id { get; set; }
+
+        [Display(Name = "Low Range")]
         public Nullable<int> lorange { get; set; }
+
+        [Display(Name = "High Range")]
         public Nullable<int> hirange { get; set; }
+
+        [Display(Name ="Royalty")]
         public Nullable<int> royalty { get; set; }
     
+        [Display(Name ="Title")]
         public virtual titles titles { get; set; }
     }
 }

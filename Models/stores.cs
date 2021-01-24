@@ -11,7 +11,8 @@ namespace MVC_Project.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class stores
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,16 +22,31 @@ namespace MVC_Project.Models
             this.discounts = new HashSet<discounts>();
         }
     
+        [Required]
+        [Display(Name ="Store ID")]
         public string stor_id { get; set; }
+
+        [Display(Name ="Store Name")]
         public string stor_name { get; set; }
+
+        [Display(Name ="Store Address")]
         public string stor_address { get; set; }
+
+        [Display(Name ="City")]
         public string city { get; set; }
+
+        [RegularExpression("\\w\\w", ErrorMessage ="State is not valid. (Example: \"LA\")")]
+        [Display(Name ="State")]
         public string state { get; set; }
+
+        [Display(Name ="Zip Code")]
         public string zip { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        [Display(Name ="Sales")]
         public virtual ICollection<sales> sales { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        [Display(Name ="Discount")]
         public virtual ICollection<discounts> discounts { get; set; }
     }
 }

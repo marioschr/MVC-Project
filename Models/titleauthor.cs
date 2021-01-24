@@ -15,17 +15,22 @@ namespace MVC_Project.Models
 
     public partial class titleauthor
     {
-        [Display(Name ="Author's ID")]
+        [Display(Name ="Author")]
         public string au_id { get; set; }
 
-        [Display(Name ="Title's ID")]
+        [Display(Name ="Title")]
         public string title_id { get; set; }
 
-        
+        [Display(Name ="Author Order")]
         public Nullable<byte> au_ord { get; set; }
+
+        [Display(Name = "Royal Typer")]
         public Nullable<int> royaltyper { get; set; }
-    
+
+        [Display(Name = "Author")]
         public virtual authors authors { get; set; }
+
+        [Display(Name = "Title")]
         public virtual titles titles { get; set; }
     }
 }

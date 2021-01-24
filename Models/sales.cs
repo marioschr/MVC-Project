@@ -11,17 +11,38 @@ namespace MVC_Project.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class sales
     {
+        [Required]
+        [Display(Name ="Store")]
         public string stor_id { get; set; }
+
+        [Required]
+        [Display(Name ="Order Number")]
         public string ord_num { get; set; }
+
+        [Required]
+        [Display(Name ="Order Date")]
         public System.DateTime ord_date { get; set; }
+        
+        [Required]
+        [Display(Name = "Quantity")]
         public short qty { get; set; }
+
+        [Required]
+        [Display(Name ="Payterms")]
         public string payterms { get; set; }
+
+        [Required]
+        [Display(Name = "Title")]
         public string title_id { get; set; }
     
+        [Display(Name ="Store")]
         public virtual stores stores { get; set; }
+
+        [Display(Name ="Title")]
         public virtual titles titles { get; set; }
     }
 }
