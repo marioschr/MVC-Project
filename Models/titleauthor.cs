@@ -24,10 +24,10 @@ namespace MVC_Project.Models
         public string title_id { get; set; }
 
         [Display(Name ="Author Order")]
-        [MaxLength(3)]
+        [Range(0, Int16.MaxValue, ErrorMessage = "Please enter valid Number (Max. 255)")]
         public Nullable<byte> au_ord { get; set; }
 
-        [Display(Name = "Royal Typer")]
+        [Display(Name = "Royalty Percentage")]
         public Nullable<int> royaltyper { get; set; }
 
         public virtual authors authors { get; set; }

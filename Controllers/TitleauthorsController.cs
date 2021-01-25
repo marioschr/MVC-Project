@@ -22,13 +22,13 @@ namespace MVC_Project.Controllers
         }
 
         // GET: Titleauthors/Details/5
-        public ActionResult Details(string id)
+        public ActionResult Details(string au_id, string title_id)
         {
-            if (id == null)
+            if (au_id == null || title_id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            titleauthor titleauthor = db.titleauthor.Find(id);
+            titleauthor titleauthor = db.titleauthor.Find(au_id,title_id);
             if (titleauthor == null)
             {
                 return HttpNotFound();
@@ -64,13 +64,13 @@ namespace MVC_Project.Controllers
         }
 
         // GET: Titleauthors/Edit/5
-        public ActionResult Edit(string id)
+        public ActionResult Edit(string au_id, string title_id)
         {
-            if (id == null)
+            if (au_id == null || title_id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            titleauthor titleauthor = db.titleauthor.Find(id);
+            titleauthor titleauthor = db.titleauthor.Find(au_id, title_id);
             if (titleauthor == null)
             {
                 return HttpNotFound();
@@ -99,13 +99,13 @@ namespace MVC_Project.Controllers
         }
 
         // GET: Titleauthors/Delete/5
-        public ActionResult Delete(string id)
+        public ActionResult Delete(string au_id, string title_id)
         {
-            if (id == null)
+            if (au_id == null || title_id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            titleauthor titleauthor = db.titleauthor.Find(id);
+            titleauthor titleauthor = db.titleauthor.Find(au_id, title_id);
             if (titleauthor == null)
             {
                 return HttpNotFound();
@@ -116,9 +116,8 @@ namespace MVC_Project.Controllers
         // POST: Titleauthors/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id)
-        {
-            titleauthor titleauthor = db.titleauthor.Find(id);
+        public ActionResult DeleteConfirmed(string au_id, string title_id) {
+            titleauthor titleauthor = db.titleauthor.Find(au_id, title_id);
             db.titleauthor.Remove(titleauthor);
             db.SaveChanges();
             return RedirectToAction("Index");

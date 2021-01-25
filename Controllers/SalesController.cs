@@ -24,7 +24,7 @@ namespace MVC_Project.Controllers
         // GET: Sales/Details/5
         public ActionResult Details(string stor_id, string ord_num, string title_id)
         {
-            if (ord_num == null || title_id == null)
+            if (stor_id == null || ord_num == null || title_id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
