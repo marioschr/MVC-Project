@@ -22,13 +22,13 @@ namespace MVC_Project.Controllers
         }
 
         // GET: Discounts/Details/5
-        public ActionResult Details(string discounttype, decimal discount)
+        public ActionResult Details(int? id)
         {
-            if (discounttype == null)
+            if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            discounts discounts = db.discounts.Find(discounttype, discount);
+            discounts discounts = db.discounts.Find(id);
             if (discounts == null)
             {
                 return HttpNotFound();
@@ -48,7 +48,7 @@ namespace MVC_Project.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "discounttype,stor_id,lowqty,highqty,discount")] discounts discounts)
+        public ActionResult Create([Bind(Include = "discounttype,stor_id,lowqty,highqty,discount,discount_id")] discounts discounts)
         {
             if (ModelState.IsValid)
             {
@@ -62,13 +62,13 @@ namespace MVC_Project.Controllers
         }
 
         // GET: Discounts/Edit/5
-        public ActionResult Edit(string discounttype, decimal discount)
+        public ActionResult Edit(int? id)
         {
-            if (discounttype == null)
+            if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            discounts discounts = db.discounts.Find(discounttype, discount);
+            discounts discounts = db.discounts.Find(id);
             if (discounts == null)
             {
                 return HttpNotFound();
@@ -82,7 +82,7 @@ namespace MVC_Project.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "discounttype,stor_id,lowqty,highqty,discount")] discounts discounts)
+        public ActionResult Edit([Bind(Include = "discounttype,stor_id,lowqty,highqty,discount,discount_id")] discounts discounts)
         {
             if (ModelState.IsValid)
             {
@@ -95,13 +95,13 @@ namespace MVC_Project.Controllers
         }
 
         // GET: Discounts/Delete/5
-        public ActionResult Delete(string discounttype, decimal discount)
+        public ActionResult Delete(int? id)
         {
-            if (discounttype == null)
+            if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            discounts discounts = db.discounts.Find(discounttype, discount);
+            discounts discounts = db.discounts.Find(id);
             if (discounts == null)
             {
                 return HttpNotFound();
@@ -112,7 +112,7 @@ namespace MVC_Project.Controllers
         // POST: Discounts/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id)
+        public ActionResult DeleteConfirmed(int id)
         {
             discounts discounts = db.discounts.Find(id);
             db.discounts.Remove(discounts);

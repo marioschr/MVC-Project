@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="pubsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="pubsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="authors">
           <Key>
             <PropertyRef Name="au_id" />
@@ -19,18 +19,16 @@
           <Property Name="zip" Type="char" MaxLength="5" />
           <Property Name="contract" Type="bit" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'pubs.dbo.discounts' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="discounts">
           <Key>
-            <PropertyRef Name="discounttype" />
-            <PropertyRef Name="discount" />
+            <PropertyRef Name="discount_id" />
           </Key>
           <Property Name="discounttype" Type="varchar" MaxLength="40" Nullable="false" />
           <Property Name="stor_id" Type="char" MaxLength="4" />
           <Property Name="lowqty" Type="smallint" />
           <Property Name="highqty" Type="smallint" />
           <Property Name="discount" Type="decimal" Precision="4" Scale="2" Nullable="false" />
+          <Property Name="discount_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityType Name="employee">
           <Key>
@@ -216,8 +214,10 @@ warning 6002: The table/view 'pubs.dbo.roysched' does not have a primary key def
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__titleauth__au_id__31EC6D26">
-          <End Role="authors" Type="Self.authors" Multiplicity="1" />
+        <Association Name="FK__titleauth__au_id__5CD6CB2B">
+          <End Role="authors" Type="Self.authors" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="titleauthor" Type="Self.titleauthor" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="authors">
@@ -228,8 +228,10 @@ warning 6002: The table/view 'pubs.dbo.roysched' does not have a primary key def
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__titleauth__title__32E0915F">
-          <End Role="titles" Type="Self.titles" Multiplicity="1" />
+        <Association Name="FK__titleauth__title__5DCAEF64">
+          <End Role="titles" Type="Self.titles" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="titleauthor" Type="Self.titleauthor" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="titles">
@@ -254,6 +256,7 @@ warning 6002: The table/view 'pubs.dbo.roysched' does not have a primary key def
         </Association>
         <EntityContainer Name="pubsModelStoreContainer">
           <EntitySet Name="authors" EntityType="Self.authors" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="discounts" EntityType="Self.discounts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="employee" EntityType="Self.employee" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="jobs" EntityType="Self.jobs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="pub_info" EntityType="Self.pub_info" Schema="dbo" store:Type="Tables" />
@@ -262,15 +265,6 @@ warning 6002: The table/view 'pubs.dbo.roysched' does not have a primary key def
           <EntitySet Name="stores" EntityType="Self.stores" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="titleauthor" EntityType="Self.titleauthor" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="titles" EntityType="Self.titles" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="discounts" EntityType="Self.discounts" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [discounts].[discounttype] AS [discounttype], 
-    [discounts].[stor_id] AS [stor_id], 
-    [discounts].[lowqty] AS [lowqty], 
-    [discounts].[highqty] AS [highqty], 
-    [discounts].[discount] AS [discount]
-    FROM [dbo].[discounts] AS [discounts]</DefiningQuery>
-          </EntitySet>
           <EntitySet Name="roysched" EntityType="Self.roysched" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [roysched].[title_id] AS [title_id], 
@@ -307,11 +301,11 @@ warning 6002: The table/view 'pubs.dbo.roysched' does not have a primary key def
             <End Role="titles" EntitySet="titles" />
             <End Role="sales" EntitySet="sales" />
           </AssociationSet>
-          <AssociationSet Name="FK__titleauth__au_id__31EC6D26" Association="Self.FK__titleauth__au_id__31EC6D26">
+          <AssociationSet Name="FK__titleauth__au_id__5CD6CB2B" Association="Self.FK__titleauth__au_id__5CD6CB2B">
             <End Role="authors" EntitySet="authors" />
             <End Role="titleauthor" EntitySet="titleauthor" />
           </AssociationSet>
-          <AssociationSet Name="FK__titleauth__title__32E0915F" Association="Self.FK__titleauth__title__32E0915F">
+          <AssociationSet Name="FK__titleauth__title__5DCAEF64" Association="Self.FK__titleauth__title__5DCAEF64">
             <End Role="titles" EntitySet="titles" />
             <End Role="titleauthor" EntitySet="titleauthor" />
           </AssociationSet>
@@ -320,8 +314,7 @@ warning 6002: The table/view 'pubs.dbo.roysched' does not have a primary key def
             <End Role="titles" EntitySet="titles" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="pubsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -448,8 +441,7 @@ warning 6002: The table/view 'pubs.dbo.roysched' does not have a primary key def
         </EntityType>
         <EntityType Name="discounts">
           <Key>
-            <PropertyRef Name="discounttype" />
-            <PropertyRef Name="discount" />
+            <PropertyRef Name="discount_id" />
           </Key>
           <Property Name="discounttype" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="stor_id" Type="String" MaxLength="4" FixedLength="true" Unicode="false" />
@@ -457,6 +449,7 @@ warning 6002: The table/view 'pubs.dbo.roysched' does not have a primary key def
           <Property Name="highqty" Type="Int16" />
           <Property Name="discount" Type="Decimal" Precision="4" Scale="2" Nullable="false" />
           <NavigationProperty Name="stores" Relationship="Self.FK__discounts__stor___3C69FB99" FromRole="discounts" ToRole="stores" />
+          <Property Name="discount_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
         </EntityType>
         <EntityType Name="roysched">
           <Key>
@@ -759,6 +752,7 @@ warning 6002: The table/view 'pubs.dbo.roysched' does not have a primary key def
           <EntitySetMapping Name="discounts">
             <EntityTypeMapping TypeName="pubsModel.discounts">
               <MappingFragment StoreEntitySet="discounts">
+                <ScalarProperty Name="discount_id" ColumnName="discount_id" />
                 <ScalarProperty Name="discounttype" ColumnName="discounttype" />
                 <ScalarProperty Name="stor_id" ColumnName="stor_id" />
                 <ScalarProperty Name="lowqty" ColumnName="lowqty" />

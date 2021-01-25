@@ -7,9 +7,15 @@
 <h2>Details</h2>
 
 <div>
-    <h4>discounts</h4>
-    <hr />
     <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.discounttype)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.discounttype)
+        </dd>
+
         <dt>
             @Html.DisplayNameFor(model => model.lowqty)
         </dt>
@@ -27,6 +33,14 @@
         </dd>
 
         <dt>
+            @Html.DisplayNameFor(model => model.discount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.discount) %
+        </dd>
+
+        <dt>
             @Html.DisplayNameFor(model => model.stores.stor_name)
         </dt>
 
@@ -37,4 +51,4 @@
     </dl>
 </div>
 <a class="btn btn-primary" href=@Url.Action("Index") role="button">Back to List</a>
-<a class="btn btn-primary" href=@Url.Action("Edit", new { Model.discounttype, Model.discount }) role="button">Edit</a>
+<a class="btn btn-primary" href=@Url.Action("Edit", new { id = Model.discount_id }) role="button">Edit</a>
