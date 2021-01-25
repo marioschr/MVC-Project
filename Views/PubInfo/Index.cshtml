@@ -9,7 +9,7 @@
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    <a class="btn btn-primary" href=@Url.Action("Create") role="button">Add new Publisher Info</a>
 </p>
 <table class="table">
     <tr>
@@ -39,9 +39,11 @@
             @Html.DisplayFor(modelItem => item.publishers.pub_name)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.pub_id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.pub_id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.pub_id })
+            <div class="btn-group" role="group" aria-label="Basic example">
+                <a class="btn btn-primary" href=@Url.Action("Edit", new { id = item.pub_id }) role="button">Edit</a>
+                <a class="btn btn-primary" href=@Url.Action("Details", new { id = item.pub_id }) role="button">Details</a>
+                <a class="btn btn-primary" href=@Url.Action("Delete", new { id = item.pub_id }) role="button">Delete</a>
+            </div>
         </td>
     </tr>
 }

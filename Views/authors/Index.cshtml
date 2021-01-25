@@ -7,7 +7,7 @@
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    <a class="btn btn-primary" href=@Url.Action("Create") role="button">Add new Author</a>
 </p>
 <button type="button" class="btn btn-success">Success</button>
 <button type="button" class="btn btn-danger">Danger</button>
@@ -73,11 +73,10 @@
                 @Html.DisplayFor(modelItem => item.contract)
             </td>
             <td>
-
                 <div class="btn-group" role="group" aria-label="Basic example">
-                    <a class="btn btn-dark" href=@Url.Action("Edit", new {id = item.au_id}) role="button">Edit</a>
-                    <a class="btn btn-dark" href=@Url.Action("Details", new {id = item.au_id}) role="button">Details</a>
-                    <a class="btn btn-dark" href=@Url.Action("Delete", new {id = item.au_id}) role="button">Delete</a>
+                    <a class="btn btn-primary" href=@Url.Action("Edit", new { id = item.au_id }) role="button">Edit</a>
+                    <a class="btn btn-primary" href=@Url.Action("Details", new { id = item.au_id }) role="button">Details</a>
+                    <a class="btn btn-primary" href=@Url.Action("Delete", new { id = item.au_id }) role="button">Delete</a>
                 </div>
             </td>
         </tr>

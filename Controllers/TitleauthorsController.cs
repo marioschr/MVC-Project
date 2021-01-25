@@ -28,6 +28,7 @@ namespace MVC_Project.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             titleauthor titleauthor = db.titleauthor.Find(id);
             if (titleauthor == null)
             {

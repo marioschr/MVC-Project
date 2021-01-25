@@ -30,7 +30,7 @@ namespace MVC_Project.Models
         public Nullable<short> highqty { get; set; }
         [Display(Name = "Discount")]
         [Required]
-        [MaxLength(5)]
+        [RegularExpression(@"^(0|-?\d{0,4}(\.\d{0,2})?)$")]
         public decimal discount { get; set; }
     
         public virtual stores stores { get; set; }
