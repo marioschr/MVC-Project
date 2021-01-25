@@ -7,7 +7,7 @@
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    <a class="btn btn-primary" href=@Url.Action("Create") role="button">Add new Employee</a>
 </p>
 <table class="table">
     <tr>
@@ -59,9 +59,15 @@
             @Html.DisplayFor(modelItem => item.publishers.pub_name)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.emp_id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.emp_id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.emp_id })
+            @Html.ActionLink("Edit", "Edit", new { id = item.emp_id }) |
+            @Html.ActionLink("Details", "Details", new { id = item.emp_id }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.emp_id })
+
+            <div class="btn-group" role="group" aria-label="Basic example">
+                <a class="btn btn-primary" href=@Url.Action("Edit", new { id = item.emp_id }) role="button">Edit</a>
+                <a class="btn btn-primary" href=@Url.Action("Details", new { id = item.emp_id }) role="button">Details</a>
+                <a class="btn btn-primary" href=@Url.Action("Delete", new { id = item.emp_id }) role="button">Delete</a>
+            </div>
         </td>
     </tr>
 }

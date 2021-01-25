@@ -22,13 +22,13 @@ namespace MVC_Project.Controllers
         }
 
         // GET: Discounts/Details/5
-        public ActionResult Details(string id)
+        public ActionResult Details(string discounttype, decimal discount)
         {
-            if (id == null)
+            if (discounttype == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            discounts discounts = db.discounts.Find(id);
+            discounts discounts = db.discounts.Find(discounttype, discount);
             if (discounts == null)
             {
                 return HttpNotFound();
@@ -62,13 +62,13 @@ namespace MVC_Project.Controllers
         }
 
         // GET: Discounts/Edit/5
-        public ActionResult Edit(string id)
+        public ActionResult Edit(string discounttype, decimal discount)
         {
-            if (id == null)
+            if (discounttype == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            discounts discounts = db.discounts.Find(id);
+            discounts discounts = db.discounts.Find(discounttype, discount);
             if (discounts == null)
             {
                 return HttpNotFound();
@@ -95,13 +95,13 @@ namespace MVC_Project.Controllers
         }
 
         // GET: Discounts/Delete/5
-        public ActionResult Delete(string id)
+        public ActionResult Delete(string discounttype, decimal discount)
         {
-            if (id == null)
+            if (discounttype == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            discounts discounts = db.discounts.Find(id);
+            discounts discounts = db.discounts.Find(discounttype, discount);
             if (discounts == null)
             {
                 return HttpNotFound();

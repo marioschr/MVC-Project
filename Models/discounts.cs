@@ -11,13 +11,26 @@ namespace MVC_Project.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class discounts
     {
+        [Display(Name = "Discount Type")]
+        [Required]
+        [MaxLength(40)]
         public string discounttype { get; set; }
+        [Display(Name = "Store ID")]
+        [MaxLength(4)]
         public string stor_id { get; set; }
+        [Display(Name = "Low Qty")]
+        [MaxLength(5)]
         public Nullable<short> lowqty { get; set; }
+        [Display(Name = "High Qty")]
+        [MaxLength(5)]
         public Nullable<short> highqty { get; set; }
+        [Display(Name = "Discount")]
+        [Required]
+        [RegularExpression(@"^(0|-?\d{0,4}(\.\d{0,2})?)$")]
         public decimal discount { get; set; }
     
         public virtual stores stores { get; set; }
