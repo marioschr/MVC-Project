@@ -7,7 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using MVC_Project.Models;
-
+using PagedList;
 namespace MVC_Project.Controllers
 {
     public class DiscountsController : Controller
@@ -15,10 +15,52 @@ namespace MVC_Project.Controllers
         private pubsEntities db = new pubsEntities();
 
         // GET: Discounts
-        public ActionResult Index()
-        {
+        public ActionResult Index(string sortOrder, string currentFilter, int? page) {
+            ViewBag.CurrentSort = sortOrder;
+
+
+            ViewBag.discounttypeSortParm = String.IsNullOrEmpty(sortOrder) ? "discounttype_desc" : "";
+            ViewBag.stor_idSortParm = sortOrder == "stor_id" ? "stor_id_desc" : "stor_id";
+            ViewBag.lowqtySortParm = sortOrder == "lowqty" ? "lowqty_desc" : "lowqty";
+            ViewBag.highqtySortParm = sortOrder == "highqty" ? "highqty_desc" : "highqty";
+            ViewBag.discountSortParm = sortOrder == "discount" ? "discount_desc" : "discount";
+
             var discounts = db.discounts.Include(d => d.stores);
-            return View(discounts.ToList());
+            switch (sortOrder) { //discounttype,stor_id,lowqty,highqty,discoun
+                case "discounttype_desc":
+                    discounts = discounts.OrderByDescending(s => s.discounttype);
+                    break;
+                case "stor_id":
+                    discounts = discounts.OrderBy(s => s.stor_id);
+                    break;
+                case "stor_id_desc":
+                    discounts = discounts.OrderByDescending(s => s.stor_id);
+                    break;
+                case "lowqty":
+                    discounts = discounts.OrderBy(s => s.lowqty);
+                    break;
+                case "lowqty_desc":
+                    discounts = discounts.OrderByDescending(s => s.lowqty);
+                    break;
+                case "highqty":
+                    discounts = discounts.OrderBy(s => s.highqty);
+                    break;
+                case "highqty_desc":
+                    discounts = discounts.OrderByDescending(s => s.highqty);
+                    break;
+                case "discount":
+                    discounts = discounts.OrderBy(s => s.discount);
+                    break;
+                case "discount_desc":
+                    discounts = discounts.OrderByDescending(s => s.discount);
+                    break;
+                default:
+                    discounts = discounts.OrderBy(s => s.discounttype);
+                    break;
+            }
+            int pageSize = 3;
+            int pageNumber = (page ?? 1);
+            return View(discounts.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Discounts/Details/5

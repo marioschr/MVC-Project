@@ -161,14 +161,14 @@ sup {
 }
 
 a {
-  color: #00bc8c;
-  text-decoration: none;
-  background-color: transparent;
+    color: #375a7f;
+    text-decoration: none;
+    background-color: transparent;
 }
 
 a:hover {
-  color: #007053;
-  text-decoration: underline;
+    color: #2b4764;
+    text-decoration: underline;
 }
 
 a:not([href]):not([class]) {
@@ -5045,22 +5045,22 @@ input[type="button"].btn-block {
 }
 
 .page-link {
-  position: relative;
-  display: block;
-  padding: 0.5rem 0.75rem;
-  margin-left: 0;
-  line-height: 1.25;
-  color: #fff;
-  background-color: #00bc8c;
-  border: 0 solid transparent;
+    position: relative;
+    display: block;
+    padding: 0.5rem 0.75rem;
+    margin-left: 0;
+    line-height: 1.25;
+    color: #fff;
+    background-color: #375a7f;
+    border: 0 solid transparent;
 }
 
 .page-link:hover {
-  z-index: 2;
-  color: #fff;
-  text-decoration: none;
-  background-color: #00efb2;
-  border-color: transparent;
+    z-index: 2;
+    color: #fff;
+    text-decoration: none;
+    background-color: #46719f;
+    border-color: transparent;
 }
 
 .page-link:focus {
@@ -5081,18 +5081,18 @@ input[type="button"].btn-block {
 }
 
 .page-item.active .page-link {
-  z-index: 3;
-  color: #fff;
-  background-color: #00efb2;
-  border-color: transparent;
+    z-index: 3;
+    color: #fff;
+    background-color: #46719f;
+    border-color: transparent;
 }
 
 .page-item.disabled .page-link {
-  color: #fff;
-  pointer-events: none;
-  cursor: auto;
-  background-color: #007053;
-  border-color: transparent;
+    color: #fff;
+    pointer-events: none;
+    cursor: auto;
+    background-color: #1c3752;
+    border-color: transparent;
 }
 
 .pagination-lg .page-link {

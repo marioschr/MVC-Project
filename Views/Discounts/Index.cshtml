@@ -1,5 +1,11 @@
-﻿@model IEnumerable<MVC_Project.Models.discounts>
+﻿@using MVC_Project.Controllers
+@using MVC_Project.Models
+@using PagedList
+@using PagedList.Mvc;
 
+@model IEnumerable<MVC_Project.Models.discounts>
+
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css"/>
 @{
     ViewBag.Title = "Discounts";
 }
@@ -13,19 +19,29 @@
     <thead class="thead-dark">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.discounttype)
+            <a href=@Url.Action("Index", new {sortOrder = ViewBag.discounttypeSortParm, currentFilter = ViewBag.CurrentFilter}) role="button">
+                @Html.DisplayNameFor(model => model.discounttype)
+            </a>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.lowqty)
+            <a href=@Url.Action("Index", new {sortOrder = ViewBag.lowqtySortParm, currentFilter = ViewBag.CurrentFilter}) role="button">
+                @Html.DisplayNameFor(model => model.lowqty)
+            </a>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.highqty)
+            <a href=@Url.Action("Index", new {sortOrder = ViewBag.highqtySortParm, currentFilter = ViewBag.CurrentFilter}) role="button">
+                @Html.DisplayNameFor(model => model.highqty)
+            </a>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.discount)
+            <a href=@Url.Action("Index", new {sortOrder = ViewBag.discountSortParm, currentFilter = ViewBag.CurrentFilter}) role="button">
+                @Html.DisplayNameFor(model => model.discount)
+            </a>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.stores.stor_name)
+            <a href=@Url.Action("Index", new {sortOrder = ViewBag.stor_idSortParm, currentFilter = ViewBag.CurrentFilter}) role="button">
+                @Html.DisplayNameFor(model => model.stores.stor_name)
+            </a>
         </th>
         <th></th>
     </tr>
@@ -59,3 +75,8 @@
     }
 
 </table>
+<br/>
+<div style="text-align: center">
+    @Html.PagedListPager((IPagedList) Model, page => Url.Action("Index",
+        new {page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter}))
+</div>

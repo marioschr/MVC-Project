@@ -14,6 +14,7 @@ namespace MVC_Project.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Globalization;
     using System.Web.Mvc;
+    using PagedList;
 
     public partial class discounts {
         [Display(Name = "Discount Type")]
@@ -42,5 +43,8 @@ namespace MVC_Project.Models
         public int discount_id { get; set; }
     
         public virtual stores stores { get; set; }
+
+        public IPagedList<discounts> discounts_pages { get; set; }
+
     }
 }
