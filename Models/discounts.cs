@@ -34,9 +34,8 @@ namespace MVC_Project.Models
         [Range(0, Int16.MaxValue)]
         public Nullable<short> highqty { get; set; }
 
-        [Display(Name = "Discount")]
+        [Display(Name = "Discount Percentage")]
         [Required]
-        [Column(TypeName = "decimal(4, 2)")]
         public decimal discount { get; set; }
 
 

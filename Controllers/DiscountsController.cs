@@ -17,8 +17,6 @@ namespace MVC_Project.Controllers
         // GET: Discounts
         public ActionResult Index(string sortOrder, string currentFilter, int? page) {
             ViewBag.CurrentSort = sortOrder;
-
-
             ViewBag.discounttypeSortParm = String.IsNullOrEmpty(sortOrder) ? "discounttype_desc" : "";
             ViewBag.stor_idSortParm = sortOrder == "stor_id" ? "stor_id_desc" : "stor_id";
             ViewBag.lowqtySortParm = sortOrder == "lowqty" ? "lowqty_desc" : "lowqty";
@@ -58,7 +56,7 @@ namespace MVC_Project.Controllers
                     discounts = discounts.OrderBy(s => s.discounttype);
                     break;
             }
-            int pageSize = 3;
+            int pageSize = 10;
             int pageNumber = (page ?? 1);
             return View(discounts.ToPagedList(pageNumber, pageSize));
         }
@@ -68,12 +66,11 @@ namespace MVC_Project.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             discounts discounts = db.discounts.Find(id);
             if (discounts == null)
             {
-                return HttpNotFound();
+                return View("NotFound");
             }
             return View(discounts);
         }
@@ -108,12 +105,12 @@ namespace MVC_Project.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return View("NotFound");
             }
             discounts discounts = db.discounts.Find(id);
             if (discounts == null)
             {
-                return HttpNotFound();
+                return View("NotFound");
             }
             ViewBag.stor_id = new SelectList(db.stores, "stor_id", "stor_name", discounts.stor_id);
             return View(discounts);
@@ -141,12 +138,12 @@ namespace MVC_Project.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return View("NotFound");
             }
             discounts discounts = db.discounts.Find(id);
             if (discounts == null)
             {
-                return HttpNotFound();
+                return View("NotFound");
             }
             return View(discounts);
         }

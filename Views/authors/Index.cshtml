@@ -1,50 +1,62 @@
-﻿@model IEnumerable<MVC_Project.Models.authors>
-
+﻿@using PagedList
+@using PagedList.Mvc;
+@model IEnumerable<MVC_Project.Models.authors>
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Authors";
 }
 
-<h2>Index</h2>
-
+<h2>Authors</h2>
 <p>
     <a class="btn btn-primary" href=@Url.Action("Create") role="button">Add new Author</a>
 </p>
-<button type="button" class="btn btn-success">Success</button>
-<button type="button" class="btn btn-danger">Danger</button>
-<button type="button" class="btn btn-warning">Warning</button>
-<button type="button" class="btn btn-info">Info</button>
-<button type="button" class="btn btn-light">Light</button>
-<button type="button" class="btn btn-dark">Dark</button>
 
-<button type="button" class="btn btn-link">Link</button>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.au_lname)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.au_fname)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.phone)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.address)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.city)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.state)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.zip)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.contract)
-        </th>
-        <th></th>
-    </tr>
+<table class="table table-hover">
+    <thead class="thead-dark">
+        <tr>
+            <th>
+                <a href=@Url.Action("Index", new {sortOrder = ViewBag.au_lnameSortParm, currentFilter = ViewBag.CurrentFilter}) class="text-white" role="button">
+                    @Html.DisplayNameFor(model => model.au_lname)
+                </a>
+            </th>
+            <th>
+                <a href=@Url.Action("Index", new {sortOrder = ViewBag.au_fnameSortParm, currentFilter = ViewBag.CurrentFilter}) class="text-white" role="button">
+                    @Html.DisplayNameFor(model => model.au_fname)
+                </a>
+            </th>
+            <th>
+                <a href=@Url.Action("Index", new {sortOrder = ViewBag.phoneSortParm, currentFilter = ViewBag.CurrentFilter}) class="text-white" role="button">
+                    @Html.DisplayNameFor(model => model.phone)
+                </a>
+            </th>
+            <th>
+                <a href=@Url.Action("Index", new {sortOrder = ViewBag.addressSortParm, currentFilter = ViewBag.CurrentFilter}) class="text-white" role="button">
+                    @Html.DisplayNameFor(model => model.address)
+                </a>
+            </th>
+            <th>
+                <a href=@Url.Action("Index", new {sortOrder = ViewBag.citySortParm, currentFilter = ViewBag.CurrentFilter}) class="text-white" role="button">
+                    @Html.DisplayNameFor(model => model.city)
+                </a>
+            </th>
+            <th>
+                <a href=@Url.Action("Index", new {sortOrder = ViewBag.stateSortParm, currentFilter = ViewBag.CurrentFilter}) class="text-white" role="button">
+                    @Html.DisplayNameFor(model => model.state)
+                </a>
+            </th>
+            <th>
+                <a href=@Url.Action("Index", new {sortOrder = ViewBag.zipSortParm, currentFilter = ViewBag.CurrentFilter}) class="text-white" role="button">
+                    @Html.DisplayNameFor(model => model.zip)
+                </a>
+            </th>
+            <th>
+                <a href=@Url.Action("Index", new {sortOrder = ViewBag.contractSortParm, currentFilter = ViewBag.CurrentFilter}) class="text-white" role="button">
+                    @Html.DisplayNameFor(model => model.contract)
+                </a>
+            </th>
+            <th></th>
+        </tr>
+    </thead>
 
     @foreach (var item in Model) {
         <tr>
@@ -74,12 +86,17 @@
             </td>
             <td>
                 <div class="btn-group" role="group" aria-label="Basic example">
-                    <a class="btn btn-primary" href=@Url.Action("Edit", new { id = item.au_id }) role="button">Edit</a>
-                    <a class="btn btn-primary" href=@Url.Action("Details", new { id = item.au_id }) role="button">Details</a>
-                    <a class="btn btn-primary" href=@Url.Action("Delete", new { id = item.au_id }) role="button">Delete</a>
+                    <a class="btn btn-primary" href=@Url.Action("Edit", new {id = item.au_id}) role="button">Edit</a>
+                    <a class="btn btn-primary" href=@Url.Action("Details", new {id = item.au_id}) role="button">Details</a>
+                    <a class="btn btn-primary" href=@Url.Action("Delete", new {id = item.au_id}) role="button">Delete</a>
                 </div>
             </td>
         </tr>
     }
 
 </table>
+<br />
+<div style="text-align: center">
+    @Html.PagedListPager((IPagedList)Model, page => Url.Action("Index",
+        new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+</div>

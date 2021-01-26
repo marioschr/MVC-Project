@@ -1,50 +1,46 @@
-﻿@using MVC_Project.Controllers
-@using MVC_Project.Models
-@using PagedList
+﻿@using PagedList
 @using PagedList.Mvc;
-
 @model IEnumerable<MVC_Project.Models.discounts>
-
-<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css"/>
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 @{
     ViewBag.Title = "Discounts";
 }
 
 <h2>Discounts</h2>
-
 <p>
     <a class="btn btn-primary" href=@Url.Action("Create") role="button">Add new Discount</a>
 </p>
+
 <table class="table table-hover">
     <thead class="thead-dark">
-    <tr>
-        <th>
-            <a href=@Url.Action("Index", new {sortOrder = ViewBag.discounttypeSortParm, currentFilter = ViewBag.CurrentFilter}) role="button">
-                @Html.DisplayNameFor(model => model.discounttype)
-            </a>
-        </th>
-        <th>
-            <a href=@Url.Action("Index", new {sortOrder = ViewBag.lowqtySortParm, currentFilter = ViewBag.CurrentFilter}) role="button">
-                @Html.DisplayNameFor(model => model.lowqty)
-            </a>
-        </th>
-        <th>
-            <a href=@Url.Action("Index", new {sortOrder = ViewBag.highqtySortParm, currentFilter = ViewBag.CurrentFilter}) role="button">
-                @Html.DisplayNameFor(model => model.highqty)
-            </a>
-        </th>
-        <th>
-            <a href=@Url.Action("Index", new {sortOrder = ViewBag.discountSortParm, currentFilter = ViewBag.CurrentFilter}) role="button">
-                @Html.DisplayNameFor(model => model.discount)
-            </a>
-        </th>
-        <th>
-            <a href=@Url.Action("Index", new {sortOrder = ViewBag.stor_idSortParm, currentFilter = ViewBag.CurrentFilter}) role="button">
-                @Html.DisplayNameFor(model => model.stores.stor_name)
-            </a>
-        </th>
-        <th></th>
-    </tr>
+        <tr>
+            <th>
+                <a href=@Url.Action("Index", new {sortOrder = ViewBag.discounttypeSortParm, currentFilter = ViewBag.CurrentFilter}) class="text-white" role="button">
+                    @Html.DisplayNameFor(model => model.discounttype)
+                </a>
+            </th>
+            <th>
+                <a href=@Url.Action("Index", new {sortOrder = ViewBag.lowqtySortParm, currentFilter = ViewBag.CurrentFilter}) class="text-white" role="button">
+                    @Html.DisplayNameFor(model => model.lowqty)
+                </a>
+            </th>
+            <th>
+                <a href=@Url.Action("Index", new {sortOrder = ViewBag.highqtySortParm, currentFilter = ViewBag.CurrentFilter}) class="text-white" role="button">
+                    @Html.DisplayNameFor(model => model.highqty)
+                </a>
+            </th>
+            <th>
+                <a href=@Url.Action("Index", new {sortOrder = ViewBag.discountSortParm, currentFilter = ViewBag.CurrentFilter}) class="text-white" role="button">
+                    @Html.DisplayNameFor(model => model.discount)
+                </a>
+            </th>
+            <th>
+                <a href=@Url.Action("Index", new {sortOrder = ViewBag.stor_idSortParm, currentFilter = ViewBag.CurrentFilter}) class="text-white" role="button">
+                    @Html.DisplayNameFor(model => model.stores.stor_name)
+                </a>
+            </th>
+            <th></th>
+        </tr>
     </thead>
 
     @foreach (var item in Model) {
@@ -73,10 +69,9 @@
             </td>
         </tr>
     }
-
 </table>
-<br/>
+<br />
 <div style="text-align: center">
-    @Html.PagedListPager((IPagedList) Model, page => Url.Action("Index",
-        new {page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter}))
+    @Html.PagedListPager((IPagedList)Model, page => Url.Action("Index",
+        new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
 </div>

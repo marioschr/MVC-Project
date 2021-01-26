@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using MVC_Project.Models;
+using PagedList;
 
 namespace MVC_Project.Controllers
 {
@@ -15,9 +17,72 @@ namespace MVC_Project.Controllers
         private pubsEntities db = new pubsEntities();
 
         // GET: authors
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder, string currentFilter, int? page)
         {
-            return View(db.authors.ToList());
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.au_lnameSortParm = String.IsNullOrEmpty(sortOrder) ? "au_lname_desc" : "";
+            ViewBag.au_fnameSortParm = sortOrder == "au_fname" ? "au_fname_desc" : "au_fname";
+            ViewBag.phoneSortParm = sortOrder == "phone" ? "phone_desc" : "phone";
+            ViewBag.addressSortParm = sortOrder == "address" ? "address_desc" : "address";
+            ViewBag.citySortParm = sortOrder == "city" ? "city_desc" : "city";
+            ViewBag.stateSortParm = sortOrder == "state" ? "state_desc" : "state";
+            ViewBag.zipSortParm = sortOrder == "zip" ? "zip_desc" : "zip";
+            ViewBag.contractSortParm = sortOrder == "contract" ? "contract_desc" : "contract";
+
+            var authors= from s in db.authors select s;
+            switch (sortOrder) { //au_lname,au_fname,phone,address,city,state,zip,contract
+                case "au_lname_desc":
+                    authors = authors.OrderByDescending(s => s.au_lname);
+                    break;
+                case "au_fname":
+                    authors = authors.OrderBy(s => s.au_fname);
+                    break;
+                case "au_fname_desc":
+                    authors = authors.OrderByDescending(s => s.au_fname);
+                    break;
+                case "phone":
+                    authors = authors.OrderBy(s => s.phone);
+                    break;
+                case "phone_desc":
+                    authors = authors.OrderByDescending(s => s.phone);
+                    break;
+                case "address":
+                    authors = authors.OrderBy(s => s.address);
+                    break;
+                case "address_desc":
+                    authors = authors.OrderByDescending(s => s.address);
+                    break;
+                case "city":
+                    authors = authors.OrderBy(s => s.city);
+                    break;
+                case "city_desc":
+                    authors = authors.OrderByDescending(s => s.city);
+                    break;
+                case "state":
+                    authors = authors.OrderBy(s => s.state);
+                    break;
+                case "state_desc":
+                    authors = authors.OrderByDescending(s => s.state);
+                    break;
+                case "zip":
+                    authors = authors.OrderBy(s => s.zip);
+                    break;
+                case "zip_desc":
+                    authors = authors.OrderByDescending(s => s.zip);
+                    break;
+                case "contract":
+                    authors = authors.OrderBy(s => s.contract);
+                    break;
+                case "contract_desc":
+                    authors = authors.OrderByDescending(s => s.contract);
+                    break;
+                default:
+                    authors = authors.OrderBy(s => s.au_lname);
+                    break;
+            }
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+            return View(authors.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: authors/Details/5
@@ -25,12 +90,12 @@ namespace MVC_Project.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return View("NotFound");
             }
             authors authors = db.authors.Find(id);
             if (authors == null)
             {
-                return HttpNotFound();
+                return View("NotFound");
             }
             return View(authors);
         }
@@ -71,12 +136,12 @@ namespace MVC_Project.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return View("NotFound");
             }
             authors authors = db.authors.Find(id);
             if (authors == null)
             {
-                return HttpNotFound();
+                return View("NotFound");
             }
             return View(authors);
         }
@@ -102,12 +167,12 @@ namespace MVC_Project.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return View("NotFound");
             }
             authors authors = db.authors.Find(id);
             if (authors == null)
             {
-                return HttpNotFound();
+                return View("NotFound");
             }
             return View(authors);
         }

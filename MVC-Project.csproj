@@ -137,6 +137,7 @@
     <Compile Include="Controllers\AuthorsController.cs" />
     <Compile Include="Controllers\DiscountsController.cs" />
     <Compile Include="Controllers\EmployeesController.cs" />
+    <Compile Include="Controllers\ErrorsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\JobsController.cs" />
     <Compile Include="Controllers\PubInfoController.cs" />
@@ -152,6 +153,7 @@
     <Compile Include="Models\authors.cs">
       <DependentUpon>PubsModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\DecimalModelBinder.cs" />
     <Compile Include="Models\discounts.cs">
       <DependentUpon>PubsModel.tt</DependentUpon>
     </Compile>
@@ -310,9 +312,11 @@
     <Content Include="Views\Discounts\Details.cshtml" />
     <Content Include="Views\Discounts\Edit.cshtml" />
     <Content Include="Views\Discounts\Index.cshtml" />
+    <Content Include="Views\Shared\NotFound.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Errors\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
