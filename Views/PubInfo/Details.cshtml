@@ -1,4 +1,5 @@
-﻿@model MVC_Project.Models.pub_info
+﻿@using MVC_Project.Models
+@model MVC_Project.Models.pub_info
 
 @{
     ViewBag.Title = "Details";
@@ -11,23 +12,29 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.logo)
+            <h4>
+                @Html.DisplayNameFor(model => model.logo)
+            </h4>
         </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.logo)
+        <dd style="padding-bottom: 1em">
+            @Html.Image(Model.logo)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.pr_info)
+            <h4>
+                @Html.DisplayNameFor(model => model.pr_info)
+            </h4>
         </dt>
 
-        <dd>
+        <div class="overflow-auto" style="max-height: 10em; max-width: 40em;">
             @Html.DisplayFor(model => model.pr_info)
-        </dd>
+        </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.publishers.pub_name)
+        <dt style=" padding-top: 1em">
+            <h4>
+                @Html.DisplayNameFor(model => model.publishers.pub_name)
+            </h4>
         </dt>
 
         <dd>

@@ -16,13 +16,14 @@ namespace MVC_Project.Models
     
     public partial class employee {
         [Display(Name = "Employee ID")]
+        [RegularExpression(@"([A-Z][A-Z][A-Z][1-9][0-9][0-9][0-9][FM])|([A-Z]-[A-Z][1-9][0-9][0-9][0-9][0-9][FM])", ErrorMessage = "Employee ID is not valid. (Examples: \"ABC1234M\",\"A-B12345F\")")]
         [Required]
         public string emp_id { get; set; }
         [Display(Name = "First Name")]
         [Required]
         [MaxLength(20)]
         public string fname { get; set; }
-        [Display(Name = "Middle Name Initial")]
+        [Display(Name = "Middle Initial")]
         [MaxLength(1)]
         public string minit { get; set; }
         [Display(Name = "Last Name")]
@@ -34,7 +35,7 @@ namespace MVC_Project.Models
         [Range(0,Int16.MaxValue)]
         public short job_id { get; set; }
         [Display(Name = "Job Level")]
-        [Range(0, 255)]
+        [Range(10, 250)]
         public Nullable<byte> job_lvl { get; set; }
         [Display(Name = "Publisher's ID")]
         [Required]

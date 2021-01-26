@@ -15,17 +15,17 @@
 <table class="table table-hover">
     <thead class="thead-dark">
         <tr>
-            <th>
+            <th style="width: 50%">
                 <a href=@Url.Action("Index", new {sortOrder = ViewBag.job_descSortParm, currentFilter = ViewBag.CurrentFilter}) class="text-white" role="button">
                     @Html.DisplayNameFor(model => model.job_desc)
                 </a>
             </th>
-            <th>
+            <th style="width: 15%">
                 <a href=@Url.Action("Index", new {sortOrder = ViewBag.min_lvlSortParm, currentFilter = ViewBag.CurrentFilter}) class="text-white" role="button">
                     @Html.DisplayNameFor(model => model.min_lvl)
                 </a>
             </th>
-            <th>
+            <th style="width: 15%">
                 <a href=@Url.Action("Index", new {sortOrder = ViewBag.max_lvlSortParm, currentFilter = ViewBag.CurrentFilter}) class="text-white" role="button">
                     @Html.DisplayNameFor(model => model.max_lvl)
                 </a>
@@ -54,7 +54,6 @@
         </tr>
     }
 </table>
-<br />
 <div style="text-align: center">
     @Html.PagedListPager((IPagedList)Model, page => Url.Action("Index",
         new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))

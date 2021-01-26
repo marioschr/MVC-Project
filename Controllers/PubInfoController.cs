@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using MVC_Project.Models;
+using PagedList;
 
 namespace MVC_Project.Controllers
 {
@@ -15,10 +17,23 @@ namespace MVC_Project.Controllers
         private pubsEntities db = new pubsEntities();
 
         // GET: PubInfo
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder, string currentFilter, int? page)
         {
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.pub_nameSortParm = String.IsNullOrEmpty(sortOrder) ? "pub_name" : "";
+
             var pub_info = db.pub_info.Include(p => p.publishers);
-            return View(pub_info.ToList());
+            switch (sortOrder) {// job_desc,min_lvl,max_lvl
+                case "pub_name_desc":
+                    pub_info = pub_info.OrderByDescending(s => s.publishers.pub_name);
+                    break;
+                default:
+                    pub_info = pub_info.OrderBy(s => s.publishers.pub_name);
+                    break;
+            }
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+            return View(pub_info.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: PubInfo/Details/5
@@ -26,12 +41,12 @@ namespace MVC_Project.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return View("NotFound");
             }
             pub_info pub_info = db.pub_info.Find(id);
             if (pub_info == null)
             {
-                return HttpNotFound();
+                return View("NotFound");
             }
             return View(pub_info);
         }
@@ -48,11 +63,21 @@ namespace MVC_Project.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "pub_id,logo,pr_info")] pub_info pub_info)
+        public ActionResult Create(pub_info pub_info)
         {
             if (ModelState.IsValid)
             {
-                db.pub_info.Add(pub_info);
+                byte[] bytes;
+                HttpPostedFileBase data = pub_info.file;
+                using (BinaryReader br = new BinaryReader(pub_info.file.InputStream)) {
+                    bytes = br.ReadBytes(pub_info.file.ContentLength);
+                }
+
+                db.pub_info.Add(new pub_info {
+                    pub_id = pub_info.pub_id,
+                    logo = bytes,
+                    pr_info = pub_info.pr_info
+                });
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -66,12 +91,12 @@ namespace MVC_Project.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return View("NotFound");
             }
             pub_info pub_info = db.pub_info.Find(id);
             if (pub_info == null)
             {
-                return HttpNotFound();
+                return View("NotFound");
             }
             ViewBag.pub_id = new SelectList(db.publishers, "pub_id", "pub_name", pub_info.pub_id);
             return View(pub_info);
@@ -86,7 +111,17 @@ namespace MVC_Project.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(pub_info).State = EntityState.Modified;
+                byte[] bytes;
+                HttpPostedFileBase data = pub_info.file;
+                using (BinaryReader br = new BinaryReader(pub_info.file.InputStream)) {
+                    bytes = br.ReadBytes(pub_info.file.ContentLength);
+                }
+
+                db.Entry(new pub_info {
+                    pub_id = pub_info.pub_id,
+                    logo = bytes,
+                    pr_info = pub_info.pr_info
+                }).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -99,12 +134,12 @@ namespace MVC_Project.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return View("NotFound");
             }
             pub_info pub_info = db.pub_info.Find(id);
             if (pub_info == null)
             {
-                return HttpNotFound();
+                return View("NotFound");
             }
             return View(pub_info);
         }

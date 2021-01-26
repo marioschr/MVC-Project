@@ -9,6 +9,7 @@
 
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.Web;
 using System.Web.Mvc;
 
 namespace MVC_Project.Models
@@ -20,10 +21,16 @@ namespace MVC_Project.Models
         [Required]
         [MaxLength(4)]
         public string pub_id { get; set; }
+
+        [Display(Name = "Logo")]
         public byte[] logo { get; set; }
 
+        public HttpPostedFileBase file { get; set; }
+
+        [Display(Name = "Publisher's Info")]
+        [DataType(DataType.MultilineText)]
         public string pr_info { get; set; }
-    
+
         public virtual publishers publishers { get; set; }
     }
 

@@ -1,51 +1,59 @@
-﻿@using System.Drawing
-@using MVC_Project.Models
+﻿@using MVC_Project.Models
+@using PagedList
+@using PagedList.Mvc
 @model IEnumerable<MVC_Project.Models.pub_info>
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Publisher's Info";
 }
 
-<h2>Index</h2>
+<h2>Publisher's Info</h2>
 
 <p>
-    <a class="btn btn-primary" href=@Url.Action("Create") role="button">Add new Publisher Info</a>
+    <a class="btn btn-primary" href=@Url.Action("Create") role="button">Add Publisher Info</a>
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.logo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.pr_info)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.publishers.pub_name)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.Image(item.logo)
-        </td>
-        <td>
-            <div class="overflow-auto" style="max-height: 7em;max-width: 30em">
-                @Html.DisplayFor(modelItem => item.pr_info)
-            </div>
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.publishers.pub_name)
-        </td>
-        <td>
-            <div class="btn-group" role="group" aria-label="Basic example">
-                <a class="btn btn-primary" href=@Url.Action("Edit", new { id = item.pub_id }) role="button">Edit</a>
-                <a class="btn btn-primary" href=@Url.Action("Details", new { id = item.pub_id }) role="button">Details</a>
-                <a class="btn btn-primary" href=@Url.Action("Delete", new { id = item.pub_id }) role="button">Delete</a>
-            </div>
-        </td>
-    </tr>
-}
-
+<table class="table table-hover">
+    <thead class="thead-dark">
+        <tr>
+            <th>
+                <a href=@Url.Action("Index", new {sortOrder = ViewBag.max_lvlSortParm, currentFilter = ViewBag.CurrentFilter}) class="text-white" role="button">
+                    @Html.DisplayNameFor(model => model.publishers.pub_name)
+                </a>
+            </th>
+            <th class="text-white">
+                @Html.DisplayNameFor(model => model.logo)
+            </th>
+            <th class="text-white">
+                @Html.DisplayNameFor(model => model.pr_info)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.publishers.pub_name)
+            </td>
+            <td>
+                @Html.Image(item.logo)
+            </td>
+            <td>
+                <div class="overflow-auto" style="max-height: 7em; max-width: 30em">
+                    @Html.DisplayFor(modelItem => item.pr_info)
+                </div>
+            </td>
+            <td>
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <a class="btn btn-primary" href=@Url.Action("Edit", new {id = item.pub_id}) role="button">Edit</a>
+                    <a class="btn btn-primary" href=@Url.Action("Details", new {id = item.pub_id}) role="button">Details</a>
+                    <a class="btn btn-primary" href=@Url.Action("Delete", new {id = item.pub_id}) role="button">Delete</a>
+                </div>
+            </td>
+        </tr>
+    }
 </table>
+<div style="text-align: center">
+    @Html.PagedListPager((IPagedList)Model, page => Url.Action("Index",
+        new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+</div>

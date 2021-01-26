@@ -23,7 +23,7 @@ namespace MVC_Project.Models
 
         [Required]
         [Display(Name ="Author's ID")]
-        [RegularExpression("\\d\\d\\d"+"-"+"\\d\\d"+"-"+"\\d\\d\\d\\d", ErrorMessage = "Author's ID is not valid. (Example: \"123-45-6789\")")]
+        [RegularExpression(@"\d\d\d"+"-"+@"\d\d"+"-"+@"\d\d\d\d", ErrorMessage = "Author's ID is not valid. (Example: \"123-45-6789\")")]
         public string au_id { get; set; }
 
         [Required]
@@ -54,7 +54,7 @@ namespace MVC_Project.Models
         public string state { get; set; }
 
         [Display(Name = "Zip Code")]
-        [MaxLength(5)]
+        [RegularExpression(@"\d\d\d\d\d", ErrorMessage = "Zip Code is not valid. (Example: \"12345\")")]
         public string zip { get; set; }
 
         [Display(Name = "Contract")]
