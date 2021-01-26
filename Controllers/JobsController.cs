@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using MVC_Project.Models;
+using PagedList;
 
 namespace MVC_Project.Controllers
 {
@@ -15,9 +16,36 @@ namespace MVC_Project.Controllers
         private pubsEntities db = new pubsEntities();
 
         // GET: Jobs
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder, string currentFilter, int? page)
         {
-            return View(db.jobs.ToList());
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.job_descSortParm = String.IsNullOrEmpty(sortOrder) ? "job_desc_desc" : "";
+            ViewBag.min_lvlSortParm = sortOrder == "min_lvl" ? "min_lvl_desc" : "min_lvl";
+            ViewBag.max_lvlSortParm = sortOrder == "max_lvl" ? "max_lvl_desc" : "max_lvl";
+            var jobs = from s in db.jobs select s;
+            switch (sortOrder) {// job_desc,min_lvl,max_lvl
+                case "job_desc_desc":
+                    jobs = jobs.OrderByDescending(s => s.job_desc);
+                    break;
+                case "min_lvl":
+                    jobs = jobs.OrderBy(s => s.min_lvl);
+                    break;
+                case "min_lvl_desc":
+                    jobs = jobs.OrderByDescending(s => s.min_lvl);
+                    break;
+                case "max_lvl":
+                    jobs = jobs.OrderBy(s => s.max_lvl);
+                    break;
+                case "max_lvl_desc":
+                    jobs = jobs.OrderByDescending(s => s.max_lvl);
+                    break;
+                default:
+                    jobs = jobs.OrderBy(s => s.job_desc);
+                    break;
+            }
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+            return View(jobs.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Jobs/Details/5
@@ -25,12 +53,12 @@ namespace MVC_Project.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return View("NotFound");
             }
             jobs jobs = db.jobs.Find(id);
             if (jobs == null)
             {
-                return HttpNotFound();
+                return View("NotFound");
             }
             return View(jobs);
         }
@@ -63,12 +91,12 @@ namespace MVC_Project.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return View("NotFound");
             }
             jobs jobs = db.jobs.Find(id);
             if (jobs == null)
             {
-                return HttpNotFound();
+                return View("NotFound");
             }
             return View(jobs);
         }
@@ -94,12 +122,12 @@ namespace MVC_Project.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return View("NotFound");
             }
             jobs jobs = db.jobs.Find(id);
             if (jobs == null)
             {
-                return HttpNotFound();
+                return View("NotFound");
             }
             return View(jobs);
         }

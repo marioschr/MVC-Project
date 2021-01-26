@@ -23,7 +23,7 @@ namespace MVC_Project.Models
         }
         [Display(Name = "Job ID")]
         [Required]
-        [MaxLength(6)]
+        [Range(0, Int16.MaxValue)]
         public short job_id { get; set; }
         [Display(Name = "Job Description")]
         [Required]

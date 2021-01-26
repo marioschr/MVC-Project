@@ -1,47 +1,61 @@
-﻿@model IEnumerable<MVC_Project.Models.jobs>
+﻿@using PagedList
+@using PagedList.Mvc
+@model IEnumerable<MVC_Project.Models.jobs>
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Jobs";
 }
 
-<h2>Index</h2>
+<h2>Jobs</h2>
 
 <p>
     <a class="btn btn-primary" href=@Url.Action("Create") role="button">Add new Job</a>
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.job_desc)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.min_lvl)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.max_lvl)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.job_desc)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.min_lvl)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.max_lvl)
-        </td>
-        <td>
-            <div class="btn-group" role="group" aria-label="Basic example">
-                <a class="btn btn-primary" href=@Url.Action("Edit", new { id = item.job_id }) role="button">Edit</a>
-                <a class="btn btn-primary" href=@Url.Action("Details", new { id = item.job_id }) role="button">Details</a>
-                <a class="btn btn-primary" href=@Url.Action("Delete", new { id = item.job_id }) role="button">Delete</a>
-            </div>
-        </td>
-    </tr>
-}
-
+<table class="table table-hover">
+    <thead class="thead-dark">
+        <tr>
+            <th>
+                <a href=@Url.Action("Index", new {sortOrder = ViewBag.job_descSortParm, currentFilter = ViewBag.CurrentFilter}) class="text-white" role="button">
+                    @Html.DisplayNameFor(model => model.job_desc)
+                </a>
+            </th>
+            <th>
+                <a href=@Url.Action("Index", new {sortOrder = ViewBag.min_lvlSortParm, currentFilter = ViewBag.CurrentFilter}) class="text-white" role="button">
+                    @Html.DisplayNameFor(model => model.min_lvl)
+                </a>
+            </th>
+            <th>
+                <a href=@Url.Action("Index", new {sortOrder = ViewBag.max_lvlSortParm, currentFilter = ViewBag.CurrentFilter}) class="text-white" role="button">
+                    @Html.DisplayNameFor(model => model.max_lvl)
+                </a>
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.job_desc)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.min_lvl)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.max_lvl)
+            </td>
+            <td>
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <a class="btn btn-primary" href=@Url.Action("Edit", new { id = item.job_id }) role="button">Edit</a>
+                    <a class="btn btn-primary" href=@Url.Action("Details", new { id = item.job_id }) role="button">Details</a>
+                    <a class="btn btn-primary" href=@Url.Action("Delete", new { id = item.job_id }) role="button">Delete</a>
+                </div>
+            </td>
+        </tr>
+    }
 </table>
+<br />
+<div style="text-align: center">
+    @Html.PagedListPager((IPagedList)Model, page => Url.Action("Index",
+        new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+</div>

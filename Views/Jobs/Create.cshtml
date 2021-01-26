@@ -1,19 +1,18 @@
 ﻿@model MVC_Project.Models.jobs
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Add Job";
 }
 
-<h2>Create</h2>
+<hr style="border-color: white" />
+<h2>Add new Job</h2>
+<hr style="border-color: white" />
 
 
-@using (Html.BeginForm()) 
-{
+@using (Html.BeginForm()) {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
-        <h4>jobs</h4>
-        <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
             @Html.LabelFor(model => model.job_desc, htmlAttributes: new { @class = "control-label col-md-2" })
