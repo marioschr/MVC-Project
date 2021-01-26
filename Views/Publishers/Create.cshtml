@@ -1,19 +1,17 @@
 ﻿@model MVC_Project.Models.publishers
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Add Publisher";
 }
 
-<h2>Create</h2>
+<hr style="border-color: white" />
+<h2>Add Publisher</h2>
+<hr style="border-color: white" />
 
-
-@using (Html.BeginForm()) 
-{
+@using (Html.BeginForm()) {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
-        <h4>publishers</h4>
-        <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
             @Html.LabelFor(model => model.pub_id, htmlAttributes: new { @class = "control-label col-md-2" })

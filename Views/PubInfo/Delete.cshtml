@@ -19,16 +19,8 @@
         <dd style="padding-bottom: 1em">
             @Html.Image(Model.logo)
         </dd>
-
+        
         <dt>
-            @Html.DisplayNameFor(model => model.pr_info)
-        </dt>
-
-        <div class="overflow-auto" style="max-height: 10em; max-width: 40em;">
-            @Html.DisplayFor(model => model.pr_info)
-        </div>
-
-        <dt style=" padding-top: 1em">
             <h4>
                 @Html.DisplayNameFor(model => model.publishers.pub_name)
             </h4>
@@ -38,6 +30,13 @@
             @Html.DisplayFor(model => model.publishers.pub_name)
         </dd>
 
+        <dt style="padding-top: 1em">
+            @Html.DisplayNameFor(model => model.pr_info)
+        </dt>
+
+        <div class="overflow-auto" style="max-height: 10em; max-width: 40em;">
+            @Html.DisplayFor(model => model.pr_info)
+        </div>
     </dl>
 
     @using (Html.BeginForm()) {

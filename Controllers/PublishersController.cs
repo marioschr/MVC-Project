@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using MVC_Project.Models;
+using PagedList;
 
 namespace MVC_Project.Controllers
 {
@@ -15,10 +16,50 @@ namespace MVC_Project.Controllers
         private pubsEntities db = new pubsEntities();
 
         // GET: Publishers
-        public ActionResult Index()
-        {
+        public ActionResult Index(string sortOrder, string currentFilter, int? page) {
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.pub_idSortParm = String.IsNullOrEmpty(sortOrder) ? "pub_id" : "";
+            ViewBag.pub_nameSortParm = sortOrder == "pub_name" ? "pub_name_desc" : "pub_name";
+            ViewBag.citySortParm = sortOrder == "city" ? "city_desc" : "city";
+            ViewBag.stateSortParm = sortOrder == "state" ? "state_desc" : "state";
+            ViewBag.countrySortParm = sortOrder == "country" ? "country_desc" : "country";
             var publishers = db.publishers.Include(p => p.pub_info);
-            return View(publishers.ToList());
+            switch (sortOrder) {// pub_id,pub_name,city,state,country
+                case "pub_id_desc":
+                    publishers = publishers.OrderByDescending(s => s.pub_id);
+                    break;
+                case "pub_name":
+                    publishers = publishers.OrderBy(s => s.pub_name);
+                    break;
+                case "pub_name_desc":
+                    publishers = publishers.OrderByDescending(s => s.pub_name);
+                    break;
+                case "city":
+                    publishers = publishers.OrderBy(s => s.city);
+                    break;
+                case "city_desc":
+                    publishers = publishers.OrderByDescending(s => s.city);
+                    break;
+                case "state":
+                    publishers = publishers.OrderBy(s => s.state);
+                    break;
+                case "state_desc":
+                    publishers = publishers.OrderByDescending(s => s.state);
+                    break;
+                case "country":
+                    publishers = publishers.OrderBy(s => s.country);
+                    break;
+                case "country_desc":
+                    publishers = publishers.OrderByDescending(s => s.country);
+                    break;
+                default:
+                    publishers = publishers.OrderBy(s => s.pub_id);
+                    break;
+            }
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+            return View(publishers.ToPagedList(pageNumber, pageSize));
+
         }
 
         // GET: Publishers/Details/5
@@ -26,12 +67,12 @@ namespace MVC_Project.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return View("NotFound");
             }
             publishers publishers = db.publishers.Find(id);
             if (publishers == null)
             {
-                return HttpNotFound();
+                return View("NotFound");
             }
             return View(publishers);
         }
@@ -66,12 +107,12 @@ namespace MVC_Project.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return View("NotFound");
             }
             publishers publishers = db.publishers.Find(id);
             if (publishers == null)
             {
-                return HttpNotFound();
+                return View("NotFound");
             }
             ViewBag.pub_id = new SelectList(db.pub_info, "pub_id", "pr_info", publishers.pub_id);
             return View(publishers);
@@ -99,12 +140,12 @@ namespace MVC_Project.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return View("NotFound");
             }
             publishers publishers = db.publishers.Find(id);
             if (publishers == null)
             {
-                return HttpNotFound();
+                return View("NotFound");
             }
             return View(publishers);
         }

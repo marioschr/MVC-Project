@@ -20,10 +20,11 @@ namespace MVC_Project.Controllers
         public ActionResult Index(string sortOrder, string currentFilter, int? page)
         {
             ViewBag.CurrentSort = sortOrder;
-            ViewBag.pub_nameSortParm = String.IsNullOrEmpty(sortOrder) ? "pub_name" : "";
+            ViewBag.pub_nameSortParm = String.IsNullOrEmpty(sortOrder) ? "pub_name_desc" : "";
+            ViewBag.citySortParm = sortOrder == "pub_name" ? "pub_name_desc" : "pub_name";
 
             var pub_info = db.pub_info.Include(p => p.publishers);
-            switch (sortOrder) {// job_desc,min_lvl,max_lvl
+            switch (sortOrder) {
                 case "pub_name_desc":
                     pub_info = pub_info.OrderByDescending(s => s.publishers.pub_name);
                     break;
