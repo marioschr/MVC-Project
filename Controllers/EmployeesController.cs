@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using MVC_Project.Models;
+using PagedList;
 
 namespace MVC_Project.Controllers
 {
@@ -15,10 +16,64 @@ namespace MVC_Project.Controllers
         private pubsEntities db = new pubsEntities();
 
         // GET: Employees
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder, string currentFilter, int? page)
         {
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.fnameSortParm = String.IsNullOrEmpty(sortOrder) ? "fname_desc" : "";
+            ViewBag.minitSortParm = sortOrder == "minit" ? "minit_desc" : "minit";
+            ViewBag.lnameSortParm = sortOrder == "lname" ? "lname_desc" : "lname";
+            ViewBag.job_lvlSortParm = sortOrder == "job_lvl" ? "job_lvl_desc" : "job_lvl";
+            ViewBag.hire_dateSortParm = sortOrder == "hire_date" ? "hire_date_desc" : "hire_date";
+            ViewBag.job_descSortParm = sortOrder == "job_desc" ? "job_desc_desc" : "job_desc";
+            ViewBag.pub_nameSortParm = sortOrder == "pub_name" ? "pub_name_desc" : "pub_name";
             var employee = db.employee.Include(e => e.jobs).Include(e => e.publishers);
-            return View(employee.ToList());
+            switch (sortOrder) {// fname,minit,lname,job_lvl,hire_date,job_desc,pub_name
+                case "fname_desc":
+                    employee = employee.OrderByDescending(s => s.fname);
+                    break;
+                case "minit":
+                    employee = employee.OrderBy(s => s.minit);
+                    break;
+                case "minit_desc":
+                    employee = employee.OrderByDescending(s => s.minit);
+                    break;
+                case "lname":
+                    employee = employee.OrderBy(s => s.lname);
+                    break;
+                case "lname_desc":
+                    employee = employee.OrderByDescending(s => s.lname);
+                    break;
+                case "job_lvl":
+                    employee = employee.OrderBy(s => s.job_lvl);
+                    break;
+                case "job_lvl_desc":
+                    employee = employee.OrderByDescending(s => s.job_lvl);
+                    break;
+                case "hire_date":
+                    employee = employee.OrderBy(s => s.hire_date);
+                    break;
+                case "hire_date_desc":
+                    employee = employee.OrderByDescending(s => s.hire_date);
+                    break;
+                case "job_desc":
+                    employee = employee.OrderBy(s => s.jobs.job_desc);
+                    break;
+                case "job_desc_desc":
+                    employee = employee.OrderByDescending(s => s.jobs.job_desc);
+                    break;
+                case "pub_name":
+                    employee = employee.OrderBy(s => s.publishers.pub_name);
+                    break;
+                case "pub_name_desc":
+                    employee = employee.OrderByDescending(s => s.publishers.pub_name);
+                    break;
+                default:
+                    employee = employee.OrderBy(s => s.fname);
+                    break;
+            }
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+            return View(employee.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Employees/Details/5
@@ -26,12 +81,12 @@ namespace MVC_Project.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return View("NotFound");
             }
             employee employee = db.employee.Find(id);
             if (employee == null)
             {
-                return HttpNotFound();
+                return View("NotFound");
             }
             return View(employee);
         }
@@ -68,12 +123,12 @@ namespace MVC_Project.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return View("NotFound");
             }
             employee employee = db.employee.Find(id);
             if (employee == null)
             {
-                return HttpNotFound();
+                return View("NotFound");
             }
             ViewBag.job_id = new SelectList(db.jobs, "job_id", "job_desc", employee.job_id);
             ViewBag.pub_id = new SelectList(db.publishers, "pub_id", "pub_name", employee.pub_id);
@@ -103,12 +158,12 @@ namespace MVC_Project.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return View("NotFound");
             }
             employee employee = db.employee.Find(id);
             if (employee == null)
             {
-                return HttpNotFound();
+                return View("NotFound");
             }
             return View(employee);
         }

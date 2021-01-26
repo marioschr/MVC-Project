@@ -31,10 +31,10 @@ namespace MVC_Project.Models
         public string lname { get; set; }
         [Display(Name = "Job ID")]
         [Required]
-        [MaxLength(6)]
+        [Range(0,Int16.MaxValue)]
         public short job_id { get; set; }
         [Display(Name = "Job Level")]
-        [MaxLength(3)]
+        [Range(0, 255)]
         public Nullable<byte> job_lvl { get; set; }
         [Display(Name = "Publisher's ID")]
         [Required]
@@ -42,7 +42,9 @@ namespace MVC_Project.Models
         public string pub_id { get; set; }
         [Display(Name = "Hire Date")]
         [Required]
-        public System.DateTime hire_date { get; set; }
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
+        [DataType(DataType.Date)]
+        public DateTime hire_date { get; set; }
     
         public virtual jobs jobs { get; set; }
         public virtual publishers publishers { get; set; }

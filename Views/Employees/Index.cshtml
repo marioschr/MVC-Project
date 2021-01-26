@@ -1,75 +1,93 @@
-﻿@model IEnumerable<MVC_Project.Models.employee>
+﻿@using PagedList
+@using PagedList.Mvc;
+@model IEnumerable<MVC_Project.Models.employee>
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Employees";
 }
 
-<h2>Index</h2>
+<h2>Employees</h2>
 
 <p>
     <a class="btn btn-primary" href=@Url.Action("Create") role="button">Add new Employee</a>
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.fname)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.minit)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.lname)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.job_lvl)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.hire_date)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.jobs.job_desc)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.publishers.pub_name)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.fname)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.minit)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.lname)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.job_lvl)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.hire_date)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.jobs.job_desc)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.publishers.pub_name)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.emp_id }) |
-            @Html.ActionLink("Details", "Details", new { id = item.emp_id }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.emp_id })
-
-            <div class="btn-group" role="group" aria-label="Basic example">
-                <a class="btn btn-primary" href=@Url.Action("Edit", new { id = item.emp_id }) role="button">Edit</a>
-                <a class="btn btn-primary" href=@Url.Action("Details", new { id = item.emp_id }) role="button">Details</a>
-                <a class="btn btn-primary" href=@Url.Action("Delete", new { id = item.emp_id }) role="button">Delete</a>
-            </div>
-        </td>
-    </tr>
-}
-
+<table class="table table-hover">
+    <thead class="thead-dark">
+        <tr>
+            <th>
+                <a href=@Url.Action("Index", new {sortOrder = ViewBag.fnameSortParm, currentFilter = ViewBag.CurrentFilter}) class="text-white" role="button">
+                    @Html.DisplayNameFor(model => model.fname)
+                </a>
+            </th>
+            <th>
+                <a href=@Url.Action("Index", new {sortOrder = ViewBag.minitSortParm, currentFilter = ViewBag.CurrentFilter}) class="text-white" role="button">
+                    @Html.DisplayNameFor(model => model.minit)
+                </a>
+            </th>
+            <th>
+                <a href=@Url.Action("Index", new {sortOrder = ViewBag.lnameSortParm, currentFilter = ViewBag.CurrentFilter}) class="text-white" role="button">
+                    @Html.DisplayNameFor(model => model.lname)
+                </a>
+            </th>
+            <th>
+                <a href=@Url.Action("Index", new {sortOrder = ViewBag.job_lvlSortParm, currentFilter = ViewBag.CurrentFilter}) class="text-white" role="button">
+                    @Html.DisplayNameFor(model => model.job_lvl)
+                </a>
+            </th>
+            <th>
+                <a href=@Url.Action("Index", new {sortOrder = ViewBag.hire_dateSortParm, currentFilter = ViewBag.CurrentFilter}) class="text-white" role="button">
+                    @Html.DisplayNameFor(model => model.hire_date)
+                </a>
+            </th>
+            <th>
+                <a href=@Url.Action("Index", new {sortOrder = ViewBag.job_descSortParm, currentFilter = ViewBag.CurrentFilter}) class="text-white" role="button">
+                    @Html.DisplayNameFor(model => model.jobs.job_desc)
+                </a>
+            </th>
+            <th>
+                <a href=@Url.Action("Index", new {sortOrder = ViewBag.pub_nameSortParm, currentFilter = ViewBag.CurrentFilter}) class="text-white" role="button">
+                    @Html.DisplayNameFor(model => model.publishers.pub_name)
+                </a>
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.fname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.minit)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.lname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.job_lvl)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.hire_date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.jobs.job_desc)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.publishers.pub_name)
+            </td>
+            <td>
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <a class="btn btn-primary" href=@Url.Action("Edit", new { id = item.emp_id }) role="button">Edit</a>
+                    <a class="btn btn-primary" href=@Url.Action("Details", new { id = item.emp_id }) role="button">Details</a>
+                    <a class="btn btn-primary" href=@Url.Action("Delete", new { id = item.emp_id }) role="button">Delete</a>
+                </div>
+            </td>
+        </tr>
+    }
 </table>
+<br />
+<div style="text-align: center">
+    @Html.PagedListPager((IPagedList)Model, page => Url.Action("Index",
+        new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+</div>

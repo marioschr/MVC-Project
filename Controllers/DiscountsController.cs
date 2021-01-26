@@ -66,6 +66,7 @@ namespace MVC_Project.Controllers
         {
             if (id == null)
             {
+                return View("NotFound");
             }
             discounts discounts = db.discounts.Find(id);
             if (discounts == null)
