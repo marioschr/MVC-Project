@@ -24,7 +24,7 @@ namespace MVC_Project.Models
         }
 
         [Required]
-        [Display(Name = "title ID")]
+        [Display(Name = "Title ID")]
         [RegularExpression("\\w\\w\\d\\d\\d\\d",
             ErrorMessage = "Title's ID is not valid. (Example: \"BU1234\")")]
         public string title_id { get; set; }
@@ -35,7 +35,6 @@ namespace MVC_Project.Models
         public string title { get; set; }
 
         [Display(Name = "Type")]
-        [Required]
         [MaxLength(12)]
         public string type { get; set; }
 
@@ -44,9 +43,11 @@ namespace MVC_Project.Models
         public string pub_id { get; set; }
 
         [Display(Name = "Price")]
+        [DataType(DataType.Currency)]
         public Nullable<decimal> price { get; set; }
 
         [Display(Name = "In Advance")]
+        [DataType(DataType.Currency)]
         public Nullable<decimal> advance { get; set; }
 
         [Display(Name = "Royalty")]
@@ -56,10 +57,10 @@ namespace MVC_Project.Models
         public Nullable<int> ytd_sales { get; set; }
 
         [Display(Name = "Notes")]
+        [DataType(DataType.MultilineText)]
         [MaxLength(200)]
         public string notes { get; set; }
 
-        [Required]
         [Display(Name = "Publication Date")]
         public System.DateTime pubdate { get; set; }
     

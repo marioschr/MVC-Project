@@ -1,19 +1,17 @@
 ﻿@model MVC_Project.Models.titles
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Add Title";
 }
 
-<h2>Create</h2>
+<hr style="border-color: white" />
+<h2>Add New Title</h2>
+<hr style="border-color: white" />
 
-
-@using (Html.BeginForm()) 
-{
+@using (Html.BeginForm()) {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
-        <h4>titles</h4>
-        <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
             @Html.LabelFor(model => model.title_id, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -40,7 +38,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.pub_id, "pub_id", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.publishers.pub_name, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("pub_id", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.pub_id, "", new { @class = "text-danger" })

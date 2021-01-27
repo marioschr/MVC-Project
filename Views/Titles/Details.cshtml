@@ -1,14 +1,14 @@
 ﻿@model MVC_Project.Models.titles
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Title Details";
 }
 
-<h2>Details</h2>
+<hr style="border-color: white" />
+<h2>Title Details</h2>
+<hr style="border-color: white" />
 
 <div>
-    <h4>titles</h4>
-    <hr />
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.title)
@@ -83,7 +83,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.roysched.title_id)
+            @Html.DisplayNameFor(model => model.title_id)
         </dt>
 
         <dd>
