@@ -6,23 +6,26 @@
     ViewBag.Title = "Create";
 }
 
-<div class="jumbotron">
-    <h2>Search - for info about Authors by books sales</h2>
-
-    <form class="form-horizontal lead">
-        <div class="form-group">
-            <label>Form In Top X</label>
-            <input type="number" min="1" class="form-control" id="numberX" name="numberX" placeholder="Type a number of the top books to show" />
+<div class="jumbotron" style="padding-top: 1em;padding-bottom: 0.5em">
+    <h2>Authors by nubmer of books sales</h2>
+    <h4>Search - Authors between two dates of sales and Top X Authors</h4>
+    <hr style="border-color: white" />
+    <form>
+        <div class="row">
+            <div class="col">
+                <label>Form In Top X</label>
+                <input type="number" min="1" class="form-control" id="numberX" name="numberX" placeholder="Type a number of the top books to show" />
+            </div>
+            <div class="col">
+                <label>Form Date From</label>
+                <input type="date" class="form-control" id="dateFrom" name="dateFrom" placeholder="" />
+            </div>
+            <div class="col">
+                <label>Form Date To</label>
+                <input type="date" class="form-control" id="dateTo" name="dateTo" placeholder="" />
+            </div>
         </div>
-        <div class="form-group">
-            <label>Form Date From</label>
-            <input type="date" class="form-control" id="dateFrom" name="dateFrom" placeholder="" />
-        </div>
-        <div class="form-group">
-            <label>Form Date To</label>
-            <input type="date" class="form-control" id="dateTo" name="dateTo" placeholder="" />
-        </div>
-        <div class="form-group">
+        <div class="form-group" style="margin-top: 1em">
             <button type="submit" class="btn btn-success">Search</button>
         </div>
     </form>
