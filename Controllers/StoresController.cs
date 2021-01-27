@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using MVC_Project.Models;
+using PagedList;
 
 namespace MVC_Project.Controllers
 {
@@ -15,9 +16,52 @@ namespace MVC_Project.Controllers
         private pubsEntities db = new pubsEntities();
 
         // GET: Stores
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder, string currentFilter, int? page)
         {
-            return View(db.stores.ToList());
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.stor_nameSortParm = String.IsNullOrEmpty(sortOrder) ? "stor_name_desc" : "";
+            ViewBag.stor_addressSortParm = sortOrder == "stor_address" ? "stor_address_desc" : "stor_address";
+            ViewBag.citySortParm = sortOrder == "city" ? "city_desc" : "city";
+            ViewBag.stateSortParm = sortOrder == "state" ? "state_desc" : "state";
+            ViewBag.zipSortParm = sortOrder == "zip" ? "zip_desc" : "zip";
+
+            var stores = from s in db.stores select s;
+
+            switch (sortOrder) {// stor_name,stor_address,city,state,zip
+                case "stor_name_desc":
+                    stores = stores.OrderByDescending(s => s.stor_name);
+                    break;
+                case "stor_address":
+                    stores = stores.OrderBy(s => s.stor_address);
+                    break;
+                case "stor_address_desc":
+                    stores = stores.OrderByDescending(s => s.stor_address);
+                    break;
+                case "city":
+                    stores = stores.OrderBy(s => s.city);
+                    break;
+                case "city_desc":
+                    stores = stores.OrderByDescending(s => s.city);
+                    break;
+                case "state":
+                    stores = stores.OrderBy(s => s.state);
+                    break;
+                case "state_desc":
+                    stores = stores.OrderByDescending(s => s.state);
+                    break;
+                case "zip":
+                    stores = stores.OrderBy(s => s.zip);
+                    break;
+                case "zip_desc":
+                    stores = stores.OrderByDescending(s => s.zip);
+                    break;
+                default:
+                    stores = stores.OrderBy(s => s.stor_name);
+                    break;
+            }
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+            return View(stores.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Stores/Details/5
@@ -25,12 +69,12 @@ namespace MVC_Project.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return View("NotFound");
             }
             stores stores = db.stores.Find(id);
             if (stores == null)
             {
-                return HttpNotFound();
+                return View("NotFound");
             }
             return View(stores);
         }
@@ -63,12 +107,12 @@ namespace MVC_Project.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return View("NotFound");
             }
             stores stores = db.stores.Find(id);
             if (stores == null)
             {
-                return HttpNotFound();
+                return View("NotFound");
             }
             return View(stores);
         }
@@ -94,12 +138,12 @@ namespace MVC_Project.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return View("NotFound");
             }
             stores stores = db.stores.Find(id);
             if (stores == null)
             {
-                return HttpNotFound();
+                return View("NotFound");
             }
             return View(stores);
         }
