@@ -34,12 +34,20 @@ namespace MVC_Project.Controllers
 
 
 
-            ViewData["jointables"] = from aut in authorsList
+            ViewData["jointables"] = from sa in salesList
+                                     join ta in titleauthorList on sa.title_id equals ta.title_id into table1
+                                     from ta in table1.DefaultIfEmpty()
+                                     join aut in authorsList on ta.au_id equals aut.au_id into table2
+                                     from aut in table2.DefaultIfEmpty()
+                                     select new SearchModelBOne { authorsList = aut, salesList = sa, titleauthorList = ta };
+
+
+            /*ViewData["jointables"] = from aut in authorsList
                                      join ta in titleauthorList on aut.au_id equals ta.au_id into table1
                                      from ta in table1.DefaultIfEmpty()
                                      join sa in salesList on ta.title_id equals sa.title_id into table2
                                      from sa in table2.DefaultIfEmpty()
-                                     select new SearchModelBOne { authorsList = aut, titleauthorList = ta, salesList = sa };
+                                     select new SearchModelBOne { authorsList = aut, titleauthorList = ta, salesList = sa };*/
 
 
             /*string number_X = Request.QueryString["numberX"];
