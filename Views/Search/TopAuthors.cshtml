@@ -1,7 +1,4 @@
-﻿@using PagedList
-@using PagedList.Mvc;
-@model IEnumerable<MVC_Project.Models.TestClass1>
-<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+﻿@model IEnumerable<MVC_Project.Models.TopAuthorsModel>
 @{
     ViewBag.Title = "Create";
 }
@@ -26,96 +23,80 @@
             </div>
         </div>
         <div class="form-group" style="margin-top: 1em">
-            <button type="submit" class="btn btn-success">Search</button>
+            <button type="submit" class="btn btn-primary">Search</button>
         </div>
     </form>
-
-    @*<p><a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>*@
 </div>
 
-<table class="table">
-    <tr>
-        <th>
-            Authors ID
-        </th>
-        <th>
-            Last Name
-        </th>
-        <th>
-            First Name
-        </th>
-        <th>
-            Phone Number
-        </th>
-        <th>
-            Address
-        </th>
-        <th>
-            City
-        </th>
-        <th>
-            State
-        </th>
-        <th>
-            Zip
-        </th>
-        <th>
-            Contract
-        </th>
-        <th>
-            Number
-        </th>
-        <th></th>
-
-    </tr>
-
-    @foreach (var item in Model)
-    {
+<table class="table table-hover">
+    <thead class="thead-dark">
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.au_id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.au_lname)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.au_fname)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.phone)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.address)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.city)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.state)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.zip)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.contract)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.all_sales)
-            </td>
+            <th>
+                Authors ID
+            </th>
+            <th>
+                Last Name
+            </th>
+            <th>
+                First Name
+            </th>
+            <th>
+                Phone Number
+            </th>
+            <th>
+                Address
+            </th>
+            <th>
+                City
+            </th>
+            <th>
+                State
+            </th>
+            <th>
+                Zip
+            </th>
+            <th>
+                Contract
+            </th>
+            <th>
+                Sales
+            </th>
+            <th></th>
         </tr>
-    }
+    </thead>
+
+        @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.au_id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.au_lname)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.au_fname)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.phone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.city)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.state)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.zip)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.contract)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.all_sales)
+                </td>
+            </tr>
+        }
 </table>
-@*
-<div class="container">
-    <div class="row">
-        <div class="col-sm">
-            ssssssssss
-        </div>
-        <div class="col-sm">
-            aaaaaaaaaaa
-        </div>
-        <div class="col-sm">
-            ddddddddddddddddddd
-        </div>
-    </div>
-</div>*@
