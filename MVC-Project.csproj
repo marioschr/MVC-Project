@@ -195,6 +195,7 @@
     <Compile Include="Models\stores.cs">
       <DependentUpon>PubsModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\TestClass1.cs" />
     <Compile Include="Models\titleauthor.cs">
       <DependentUpon>PubsModel.tt</DependentUpon>
     </Compile>

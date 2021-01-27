@@ -90,16 +90,58 @@ namespace MVC_Project.Controllers
                 "AND titleauthor.title_id = sales.title_id"
                 + "GROUP BY authors.au_id, authors.au_lname, authors.au_fname, authors.phone, authors.address, authors.city, authors.state, authors.zip, authors.contract";*/
 
-            string query = "SELECT SUM([sales].[qty]) AS all_sales, [authors].[au_id], [authors].[au_fname], [authors].[au_lname], [authors].[phone], [authors].[address], " +
+            /*string query = "SELECT SUM([sales].[qty]) AS all_sales, [authors].[au_id], [authors].[au_fname], [authors].[au_lname], [authors].[phone], [authors].[address], " +
                 "[authors].[city], [authors].[state], [authors].[zip], [authors].[contract] " +
                 "FROM[dbo].[sales],[dbo].[authors],[dbo].[titleauthor] " +
                 "WHERE[titleauthor].[au_id] = [authors].[au_id] AND[titleauthor].[title_id] = [sales].[title_id] " +
                 "GROUP BY[authors].[au_id], [authors].[au_fname], [authors].[au_lname], [authors].[phone], [authors].[address], " +
                 "[authors].[city], [authors].[state], [authors].[zip], [authors].[contract]";
 
-            IEnumerable<SearchModelBOne> data = db.Database.SqlQuery<SearchModelBOne>(query);
 
-            return View(data.ToList());
+            IEnumerable<SearchModelBOne> data = db.Database.SqlQuery<SearchModelBOne>(query);*/
+
+            string query = "SELECT SUM(sales.qty) AS all_sales, authors.au_id, authors.au_fname, authors.au_lname, authors.phone, authors.address, " +
+                "authors.city, authors.state, authors.zip, authors.contract " +
+                "FROM dbo.sales, dbo.authors, dbo.titleauthor " +
+                "WHERE titleauthor.au_id = authors.au_id AND titleauthor.title_id = sales.title_id ";
+
+
+            DateTime.TryParse(Request.QueryString["dateFrom"], out DateTime datefrom);
+            DateTime.TryParse(Request.QueryString["dateTo"], out DateTime dateto);
+
+
+            String dateTimeFrom = Request.QueryString["dateFrom"];
+            String dateTimeTo = Request.QueryString["dateTo"];
+            /*if (Request.QueryString["dateFrom"] != null && Request.QueryString["dateForm"] != "" && Request.QueryString["dateTo"] != null && Request.QueryString["dateTo"] != "")
+            {
+                query += "AND sales.ord_date <= '" + dateTimeFrom + "' ";
+            }*/
+
+            if (Request.QueryString["dateFrom"] != null && Request.QueryString["dateForm"] != "")
+            {
+                query += "AND sales.ord_date >= '" + dateTimeFrom + "' ";
+            }
+
+            if (Request.QueryString["dateTo"] != null && Request.QueryString["dateTo"] != "")
+            {
+                query += "AND sales.ord_date <= '" + dateTimeTo + "' ";
+            }
+
+            query +="GROUP BY authors.au_id, authors.au_fname, authors.au_lname, authors.phone, authors.address, " +
+                "authors.city, authors.state, authors.zip, authors.contract";
+
+            /*else
+            {
+                salesList = db.sales.ToList();
+            }*/
+
+
+
+
+            IEnumerable <TestClass1> myAreaList = db.Database.SqlQuery<TestClass1>(query);
+
+            //return View(data);
+            return View(myAreaList);
         }
 
         // POST: Search/Create

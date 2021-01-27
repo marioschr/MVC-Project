@@ -1,6 +1,6 @@
 ﻿@using PagedList
 @using PagedList.Mvc;
-@model IEnumerable<MVC_Project.Models.SearchModelBOne>
+@model IEnumerable<MVC_Project.Models.TestClass1>
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 @{
     ViewBag.Title = "Create";
@@ -67,28 +67,31 @@
     {
         <tr>
             <td>
-                @item.authorsList.au_lname
+                @Html.DisplayFor(modelItem => item.au_id)
             </td>
             <td>
-                @item.authorsList.au_fname
+                @Html.DisplayFor(modelItem => item.au_lname)
             </td>
             <td>
-                @item.authorsList.phone
+                @Html.DisplayFor(modelItem => item.au_fname)
             </td>
             <td>
-                @item.authorsList.address
+                @Html.DisplayFor(modelItem => item.phone)
             </td>
             <td>
-                @item.authorsList.city
+                @Html.DisplayFor(modelItem => item.address)
             </td>
             <td>
-                @item.authorsList.state
+                @Html.DisplayFor(modelItem => item.city)
             </td>
             <td>
-                @item.authorsList.zip
+                @Html.DisplayFor(modelItem => item.state)
             </td>
             <td>
-                @item.authorsList.contract
+                @Html.DisplayFor(modelItem => item.zip)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.contract)
             </td>
         </tr>
     }
