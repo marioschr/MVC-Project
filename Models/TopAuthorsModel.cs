@@ -5,7 +5,7 @@ using System.Web;
 
 namespace MVC_Project.Models
 {
-    public class TestClass1
+    public class TopAuthorsModel
     {
         public string au_id { get; set; }
         public string au_lname { get; set; }

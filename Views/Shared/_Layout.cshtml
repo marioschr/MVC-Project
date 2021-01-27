@@ -13,25 +13,60 @@
         <a class="navbar-brand" href="/">
             <img src="https://www.unipi.gr/unipi/images/images/logopapei3.png" width="160" height="50" alt="">
         </a>
-@*        @Html.ActionLink("Unipi", "Index", "Home", new {area = ""}, new {@class = "navbar-brand"})
-*@        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target=".navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target=".navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav mr-auto">
                 <li class="nav-item">@Html.ActionLink("Home", "Index", "Home", null, new {@class = "nav-link"})</li>
-                <li class="nav-item">@Html.ActionLink("Authors", "Index", "Authors", null, new {@class = "nav-link"})</li>
-                <li class="nav-item">@Html.ActionLink("Discounts", "Index", "Discounts", null, new {@class = "nav-link"})</li>
-                <li class="nav-item">@Html.ActionLink("Employees", "Index", "Employees", null, new {@class = "nav-link"})</li>
-                <li class="nav-item">@Html.ActionLink("Jobs", "Index", "Jobs", null, new {@class = "nav-link"})</li>
-                <li class="nav-item">@Html.ActionLink("PubInfo", "Index", "PubInfo", null, new {@class = "nav-link"})</li>
-                <li class="nav-item">@Html.ActionLink("Publishers", "Index", "Publishers", null, new {@class = "nav-link"})</li>
-                <li class="nav-item">@Html.ActionLink("Royscheds", "Index", "Royscheds", null, new {@class = "nav-link"})</li>
-                <li class="nav-item">@Html.ActionLink("Sales", "Index", "Sales", null, new {@class = "nav-link"})</li>
-                <li class="nav-item">@Html.ActionLink("Stores", "Index", "Stores", null, new {@class = "nav-link"})</li>
-                <li class="nav-item">@Html.ActionLink("Title Authors", "Index", "Titleauthors", null, new {@class = "nav-link"})</li>
-                <li class="nav-item">@Html.ActionLink("Titles", "Index", "Titles", null, new {@class = "nav-link"})</li>
-
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Business
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        @Html.ActionLink("Stores", "Index", "Stores", null, new { @class = "dropdown-item" })
+                        @Html.ActionLink("Jobs", "Index", "Jobs", null, new { @class = "dropdown-item" })
+                        @Html.ActionLink("Employees", "Index", "Employees", null, new { @class = "dropdown-item" })
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Publishers
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        @Html.ActionLink("Publishers", "Index", "Publishers", null, new { @class = "dropdown-item" })
+                        @Html.ActionLink("Pub Info", "Index", "PubInfo", null, new { @class = "dropdown-item" })
+                    </div>
+                </li>
+                @Html.ActionLink("Authors", "Index", "Authors", null, new {@class = "nav-link"})
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Titles
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        @Html.ActionLink("Titles", "Index", "Titles", null, new { @class = "dropdown-item" })
+                        @Html.ActionLink("Title Authors", "Index", "Titleauthors", null, new { @class = "dropdown-item" })
+                        @Html.ActionLink("Discounts", "Index", "Royscheds", null, new { @class = "dropdown-item" })
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Sales
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        @Html.ActionLink("Sales", "Index", "Sales", null, new { @class = "dropdown-item" })
+                        @Html.ActionLink("Discounts", "Index", "Discounts", null, new { @class = "dropdown-item" })
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Reports
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        @Html.ActionLink("Top Authors", "TopAuthors", "Search", null, new { @class = "dropdown-item" })
+                        @Html.ActionLink("Orders per Store", "OrdersReport", "Search", null, new { @class = "dropdown-item" })
+                    </div>
+                </li>
             </ul>
         </div>
     </div>

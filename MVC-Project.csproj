@@ -192,11 +192,10 @@
     <Compile Include="Models\sales.cs">
       <DependentUpon>PubsModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\SearchModelBOne.cs" />
     <Compile Include="Models\stores.cs">
       <DependentUpon>PubsModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\TestClass1.cs" />
+    <Compile Include="Models\TopAuthorsModel.cs" />
     <Compile Include="Models\titleauthor.cs">
       <DependentUpon>PubsModel.tt</DependentUpon>
     </Compile>
@@ -315,7 +314,6 @@
     <Content Include="Views\Discounts\Edit.cshtml" />
     <Content Include="Views\Discounts\Index.cshtml" />
     <Content Include="Views\Shared\NotFound.cshtml" />
-    <Content Include="Views\Search\Index.cshtml" />
     <Content Include="Views\Search\TopAuthors.cshtml" />
     <Content Include="Views\Search\OrdersReport.cshtml" />
   </ItemGroup>
