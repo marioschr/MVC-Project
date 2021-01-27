@@ -24,6 +24,8 @@ namespace MVC_Project.Models
         public string payterms { get; set; }
         public string title_id { get; set; }
 
+        public int all_sales { get; set; }
+
         public virtual stores stores { get; set; }
 
         public virtual titles titles { get; set; }

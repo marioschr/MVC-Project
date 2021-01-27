@@ -315,7 +315,7 @@
     <Content Include="Views\Discounts\Index.cshtml" />
     <Content Include="Views\Shared\NotFound.cshtml" />
     <Content Include="Views\Search\Index.cshtml" />
-    <Content Include="Views\Search\Create.cshtml" />
+    <Content Include="Views\Search\TopAuthors.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

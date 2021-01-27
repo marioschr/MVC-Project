@@ -80,42 +80,26 @@ namespace MVC_Project.Controllers
             return View();
         }
 
-        private const string Sql = "select t1.au_id, t1.au_lname, SUM(t1.price) as price from authors as t1 group by t1.id, t1.product";
-        // GET: Search/Create
-        public ActionResult Create()
+        // GET: Search/TopAuthors
+        public ActionResult TopAuthors()
         {
-            /*string query = "SELECT authors.au_id, authors.au_lname, authors.au_fname, authors.phone, authors.address, authors.city, authors.state, authors.zip, authors.contract, SUM(sales.ord_num) AS sum_ord "
-                + "FROM authors, sales, titleauthor "
-                + "WHERE authors.au_id = titleauthor.au_id " +
-                "AND titleauthor.title_id = sales.title_id"
-                + "GROUP BY authors.au_id, authors.au_lname, authors.au_fname, authors.phone, authors.address, authors.city, authors.state, authors.zip, authors.contract";*/
 
-            /*string query = "SELECT SUM([sales].[qty]) AS all_sales, [authors].[au_id], [authors].[au_fname], [authors].[au_lname], [authors].[phone], [authors].[address], " +
-                "[authors].[city], [authors].[state], [authors].[zip], [authors].[contract] " +
-                "FROM[dbo].[sales],[dbo].[authors],[dbo].[titleauthor] " +
-                "WHERE[titleauthor].[au_id] = [authors].[au_id] AND[titleauthor].[title_id] = [sales].[title_id] " +
-                "GROUP BY[authors].[au_id], [authors].[au_fname], [authors].[au_lname], [authors].[phone], [authors].[address], " +
-                "[authors].[city], [authors].[state], [authors].[zip], [authors].[contract]";
+            string query = "SELECT ";
 
+            String dateTimeFrom = Request.QueryString["dateFrom"];
+            String dateTimeTo = Request.QueryString["dateTo"];
+            String numberX = Request.QueryString["numberX"];
 
-            IEnumerable<SearchModelBOne> data = db.Database.SqlQuery<SearchModelBOne>(query);*/
+            if (numberX != null && numberX != "")
+            {
+                query += "TOP " + numberX + " ";
+            }
 
-            string query = "SELECT SUM(sales.qty) AS all_sales, authors.au_id, authors.au_fname, authors.au_lname, authors.phone, authors.address, " +
+            query += "SUM(sales.qty) AS all_sales, authors.au_id, authors.au_fname, authors.au_lname, authors.phone, authors.address, " +
                 "authors.city, authors.state, authors.zip, authors.contract " +
                 "FROM dbo.sales, dbo.authors, dbo.titleauthor " +
                 "WHERE titleauthor.au_id = authors.au_id AND titleauthor.title_id = sales.title_id ";
 
-
-            DateTime.TryParse(Request.QueryString["dateFrom"], out DateTime datefrom);
-            DateTime.TryParse(Request.QueryString["dateTo"], out DateTime dateto);
-
-
-            String dateTimeFrom = Request.QueryString["dateFrom"];
-            String dateTimeTo = Request.QueryString["dateTo"];
-            /*if (Request.QueryString["dateFrom"] != null && Request.QueryString["dateForm"] != "" && Request.QueryString["dateTo"] != null && Request.QueryString["dateTo"] != "")
-            {
-                query += "AND sales.ord_date <= '" + dateTimeFrom + "' ";
-            }*/
 
             if (Request.QueryString["dateFrom"] != null && Request.QueryString["dateForm"] != "")
             {
@@ -128,14 +112,8 @@ namespace MVC_Project.Controllers
             }
 
             query +="GROUP BY authors.au_id, authors.au_fname, authors.au_lname, authors.phone, authors.address, " +
-                "authors.city, authors.state, authors.zip, authors.contract";
-
-            /*else
-            {
-                salesList = db.sales.ToList();
-            }*/
-
-
+                "authors.city, authors.state, authors.zip, authors.contract " +
+                "ORDER BY all_sales DESC";
 
 
             IEnumerable <TestClass1> myAreaList = db.Database.SqlQuery<TestClass1>(query);
