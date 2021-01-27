@@ -1,0 +1,62 @@
+﻿@model IEnumerable<MVC_Project.Models.OrdersReportModel>
+
+@{
+    ViewBag.Title = "OrdersReport";
+}
+
+
+<div class="jumbotron" style="padding-top: 1em;padding-bottom: 0.5em">
+    <h2>Orders Report</h2>
+    <h4>Search - Orders between two dates</h4>
+    <hr style="border-color: white" />
+    <form>
+        <div class="row">
+            <div class="col">
+                <label>Store Name</label>
+                <input type="text" min="1" class="form-control" id="storeName" name="storeName" placeholder="Type the Store's name" />
+            </div>
+            <div class="col">
+                <label>Date From</label>
+                <input type="date" class="form-control" id="dateFrom" name="dateFrom" placeholder="" />
+            </div>
+            <div class="col">
+                <label>Date To</label>
+                <input type="date" class="form-control" id="dateTo" name="dateTo" placeholder="" />
+            </div>
+        </div>
+        <div class="form-group" style="margin-top: 1em">
+            <button type="submit" class="btn btn-primary">Search</button>
+        </div>
+    </form>
+</div>
+
+<table class="table table-hover">
+    <thead class="thead-dark">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(o => o.ord_num)
+            </th>
+            <th>
+                @Html.DisplayNameFor(o => o.title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(o => o.stor_name)
+            </th>
+            <th></th>
+
+        </tr>
+    </thead>
+        @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ord_num)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.stor_name)
+                </td>
+            </tr>
+        }
+</table>

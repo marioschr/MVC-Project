@@ -164,6 +164,7 @@
     <Compile Include="Models\jobs.cs">
       <DependentUpon>PubsModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\OrdersReportModel.cs" />
     <Compile Include="Models\publishers.cs">
       <DependentUpon>PubsModel.tt</DependentUpon>
     </Compile>
@@ -316,6 +317,7 @@
     <Content Include="Views\Shared\NotFound.cshtml" />
     <Content Include="Views\Search\Index.cshtml" />
     <Content Include="Views\Search\TopAuthors.cshtml" />
+    <Content Include="Views\Search\OrdersReport.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -74,10 +74,34 @@ namespace MVC_Project.Controllers
             return View(ViewData["jointables"]);
         }
 
-        // GET: Search/Details/5
-        public ActionResult Details(int id)
+        // GET: Search/OrdersReport
+        public ActionResult OrdersReport()
         {
-            return View();
+            string query = "SELECT ord_num, stor_name, title FROM dbo.stores,dbo.titles,dbo.sales WHERE sales.stor_id = stores.stor_id AND sales.title_id = titles.title_id ";
+
+            DateTime.TryParse(Request.QueryString["dateFrom"], out DateTime datefrom);
+            DateTime.TryParse(Request.QueryString["dateTo"], out DateTime dateto);
+
+
+            String dateTimeFrom = Request.QueryString["dateFrom"];
+            String dateTimeTo = Request.QueryString["dateTo"];
+            String storeName = Request.QueryString["storeName"];
+
+            if (Request.QueryString["dateFrom"] != null && Request.QueryString["dateForm"] != "") {
+                query += "AND sales.ord_date >= '" + dateTimeFrom + "' ";
+            }
+
+            if (Request.QueryString["dateTo"] != null && Request.QueryString["dateTo"] != "") {
+                query += "AND sales.ord_date <= '" + dateTimeTo + "' ";
+            }
+
+            if (Request.QueryString["storeName"] != null && Request.QueryString["storeName"] != "") {
+                query += "AND stores.stor_name LIKE '%" + storeName + "%' ";
+            }
+
+            IEnumerable<OrdersReportModel> myAreaList = db.Database.SqlQuery<OrdersReportModel>(query);
+
+            return View(myAreaList);
         }
 
         // GET: Search/TopAuthors
