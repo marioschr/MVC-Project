@@ -1,15 +1,23 @@
 ﻿@model MVC_Project.Models.roysched
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Roysched Details";
 }
 
-<h2>Details</h2>
+<hr style="border-color: white" />
+<h2>Roysched Details</h2>
+<hr style="border-color: white" />
 
 <div>
-    <h4>roysched</h4>
-    <hr />
     <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.titles.title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.titles.title)
+        </dd>
+
         <dt>
             @Html.DisplayNameFor(model => model.lorange)
         </dt>
@@ -33,18 +41,9 @@
         <dd>
             @Html.DisplayFor(model => model.royalty)
         </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.titles.title)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.titles.title)
-        </dd>
-
     </dl>
 </div>
 <p>
     <a class="btn btn-primary" href=@Url.Action("Index") role="button">Back to List</a>
-    <a class="btn btn-primary" href=@Url.Action("Edit", new { id = Model.title_id }) role="button">Edit</a>
+    <a class="btn btn-primary" href=@Url.Action("Edit", new { id = Model.roysched_id }) role="button">Edit</a>
 </p>
