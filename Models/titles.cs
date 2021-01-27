@@ -43,11 +43,9 @@ namespace MVC_Project.Models
         public string pub_id { get; set; }
 
         [Display(Name = "Price")]
-        [DataType(DataType.Currency)]
         public Nullable<decimal> price { get; set; }
 
         [Display(Name = "In Advance")]
-        [DataType(DataType.Currency)]
         public Nullable<decimal> advance { get; set; }
 
         [Display(Name = "Royalty")]
@@ -62,6 +60,7 @@ namespace MVC_Project.Models
         public string notes { get; set; }
 
         [Display(Name = "Publication Date")]
+        [DataType(DataType.Date)]
         public System.DateTime pubdate { get; set; }
     
         public virtual publishers publishers { get; set; }

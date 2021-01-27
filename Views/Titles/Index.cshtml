@@ -75,10 +75,10 @@
                 @Html.DisplayFor(modelItem => item.type)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.price)
+                $ @Html.DisplayFor(modelItem => item.price)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.advance)
+                $ @Html.DisplayFor(modelItem => item.advance)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.royalty)
@@ -87,7 +87,9 @@
                 @Html.DisplayFor(modelItem => item.ytd_sales)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.notes)
+                <div class="overflow-auto" style="max-height: 7em; max-width: 30em">
+                    @Html.DisplayFor(modelItem => item.notes)
+                </div>
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.pubdate)
