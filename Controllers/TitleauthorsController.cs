@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using MVC_Project.Models;
+using PagedList;
 
 namespace MVC_Project.Controllers
 {
@@ -15,10 +16,44 @@ namespace MVC_Project.Controllers
         private pubsEntities db = new pubsEntities();
 
         // GET: Titleauthors
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder, string currentFilter, int? page)
         {
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.au_lnameSortParm = String.IsNullOrEmpty(sortOrder) ? "au_lname_desc" : "";
+            ViewBag.titleSortParm = sortOrder == "title" ? "title_desc" : "title";
+            ViewBag.au_ordSortParm = sortOrder == "au_ord" ? "au_ord_desc" : "au_ord";
+            ViewBag.royaltyperSortParm = sortOrder == "royaltyper" ? "royaltyper_desc" : "royaltyper";
+
             var titleauthor = db.titleauthor.Include(t => t.authors).Include(t => t.titles);
-            return View(titleauthor.ToList());
+            switch (sortOrder) {// stor_name,stor_address,city,state,zip
+                case "au_lname_desc":
+                    titleauthor = titleauthor.OrderByDescending(s => s.authors.au_lname);
+                    break;
+                case "title":
+                    titleauthor = titleauthor.OrderBy(s => s.titles.title);
+                    break;
+                case "title_desc":
+                    titleauthor = titleauthor.OrderByDescending(s => s.titles.title);
+                    break;
+                case "au_ord":
+                    titleauthor = titleauthor.OrderBy(s => s.au_ord);
+                    break;
+                case "au_ord_desc":
+                    titleauthor = titleauthor.OrderByDescending(s => s.au_ord);
+                    break;
+                case "royaltyper":
+                    titleauthor = titleauthor.OrderBy(s => s.royaltyper);
+                    break;
+                case "royaltyper_desc":
+                    titleauthor = titleauthor.OrderByDescending(s => s.royaltyper);
+                    break;
+                default:
+                    titleauthor = titleauthor.OrderBy(s => s.authors.au_lname);
+                    break;
+            }
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+            return View(titleauthor.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Titleauthors/Details/5
@@ -26,12 +61,12 @@ namespace MVC_Project.Controllers
         {
             if (au_id == null || title_id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return View("NotFound");
             }
             titleauthor titleauthor = db.titleauthor.Find(au_id,title_id);
             if (titleauthor == null)
             {
-                return HttpNotFound();
+                return View("NotFound");
             }
             return View(titleauthor);
         }
@@ -68,12 +103,12 @@ namespace MVC_Project.Controllers
         {
             if (au_id == null || title_id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return View("NotFound");
             }
             titleauthor titleauthor = db.titleauthor.Find(au_id, title_id);
             if (titleauthor == null)
             {
-                return HttpNotFound();
+                return View("NotFound");
             }
             ViewBag.au_id = new SelectList(db.authors, "au_id", "au_lname", titleauthor.au_id);
             ViewBag.title_id = new SelectList(db.titles, "title_id", "title", titleauthor.title_id);
@@ -103,12 +138,12 @@ namespace MVC_Project.Controllers
         {
             if (au_id == null || title_id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return View("NotFound");
             }
             titleauthor titleauthor = db.titleauthor.Find(au_id, title_id);
             if (titleauthor == null)
             {
-                return HttpNotFound();
+                return View("NotFound");
             }
             return View(titleauthor);
         }

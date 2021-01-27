@@ -24,7 +24,7 @@ namespace MVC_Project.Models
         public string title_id { get; set; }
 
         [Display(Name ="Author Order")]
-        [Range(0, Int16.MaxValue, ErrorMessage = "Please enter valid Number (Max. 255)")]
+        [Range(0, 255, ErrorMessage = "Please enter valid Number (Max. 255)")]
         public Nullable<byte> au_ord { get; set; }
 
         [Display(Name = "Royalty Percentage")]

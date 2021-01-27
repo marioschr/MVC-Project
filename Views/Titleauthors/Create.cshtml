@@ -4,53 +4,54 @@
     ViewBag.Title = "Add New";
 }
 
+<hr style="border-color: white" />
 <h2>Add New</h2>
 <hr style="border-color: white" />
 
 @using (Html.BeginForm()) {
     @Html.AntiForgeryToken()
 
-<div class="form-horizontal">
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    <div class="form-group">
-        @Html.LabelFor(model => model.au_id,"Author", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownList("au_id", null, htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.au_id, "", new { @class = "text-danger" })
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.au_id, "Author", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("au_id", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.au_id, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.title_id, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownList("title_id", null, htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.title_id, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.title_id, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("title_id", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.title_id, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.au_ord, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.au_ord, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.au_ord, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.au_ord, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.au_ord, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.au_ord, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.royaltyper, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.royaltyper, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.royaltyper, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.royaltyper, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.royaltyper, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.royaltyper, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <a class="btn btn-primary" href=@Url.Action("Index") role="button">Back to List</a>
-            <input type="submit" value="Create" class="btn btn-primary" />
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <a class="btn btn-primary" href=@Url.Action("Index") role="button">Back to List</a>
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
         </div>
     </div>
-</div>
 }
 
 @section Scripts {
