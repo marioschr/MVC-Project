@@ -144,6 +144,7 @@
     <Compile Include="Controllers\PublishersController.cs" />
     <Compile Include="Controllers\RoyschedsController.cs" />
     <Compile Include="Controllers\SalesController.cs" />
+    <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\StoresController.cs" />
     <Compile Include="Controllers\TitleauthorsController.cs" />
     <Compile Include="Controllers\TitlesController.cs" />
@@ -190,6 +191,7 @@
     <Compile Include="Models\sales.cs">
       <DependentUpon>PubsModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\SearchModelBOne.cs" />
     <Compile Include="Models\stores.cs">
       <DependentUpon>PubsModel.tt</DependentUpon>
     </Compile>
@@ -311,6 +313,7 @@
     <Content Include="Views\Discounts\Edit.cshtml" />
     <Content Include="Views\Discounts\Index.cshtml" />
     <Content Include="Views\Shared\NotFound.cshtml" />
+    <Content Include="Views\Search\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
