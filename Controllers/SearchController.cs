@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -19,16 +20,28 @@ namespace MVC_Project.Controllers
 
             DateTime.TryParse(Request.QueryString["dateFrom"], out DateTime datefrom);
             DateTime.TryParse(Request.QueryString["dateTo"], out DateTime dateto);
-            List<sales> salesList = db.sales.ToList();
+            List<sales> salesList;// = db.sales.ToList();
 
-            if (Request.QueryString["dateFrom"] != null && Request.QueryString["dateForm"] != "")
+
+            String dateTimeFrom = Request.QueryString["dateFrom"];
+            Debug.Write("alex   --- dateTimeFrom: " + dateTimeFrom);
+            Debug.Write("alex   --- dateTimeFrom: " + Request.QueryString["dateFrom"]);
+
+            if (Request.QueryString["dateFrom"] != null && Request.QueryString["dateForm"] != "" && Request.QueryString["dateTo"] != null && Request.QueryString["dateTo"] != "")
+            {
+                salesList = db.sales.Where(m => m.ord_date >= datefrom && m.ord_date <= dateto).ToList();
+            }
+            else if(Request.QueryString["dateFrom"] != null && Request.QueryString["dateForm"] != "")
             {
                 salesList = db.sales.Where(m => m.ord_date >= datefrom).ToList();
             }
-
-            if (Request.QueryString["dateTo"] != null && Request.QueryString["dateTo"] != "")
+            else if (Request.QueryString["dateTo"] != null && Request.QueryString["dateTo"] != "")
             {
                 salesList = db.sales.Where(m => m.ord_date <= dateto).ToList();
+            }
+            else
+            {
+                salesList = db.sales.ToList();
             }
 
 
