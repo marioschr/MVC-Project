@@ -1,52 +1,68 @@
-﻿@model IEnumerable<MVC_Project.Models.titleauthor>
+﻿@using PagedList
+@using PagedList.Mvc
+@model IEnumerable<MVC_Project.Models.titleauthor>
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Title Author";
 }
 
-<h2>Index</h2>
+<h2>Title Author</h2>
 
-<a class="btn btn-primary" href=@Url.Action("Create") role="button">Add New</a>
-
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.au_ord)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.royaltyper)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.authors.au_lname)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.titles.title)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.au_ord)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.royaltyper)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.authors.au_lname)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.titles.title)
-        </td>
-        <td>
-            <div class="btn-group" role="group" aria-label="Basic example">
-                <a class="btn btn-primary" href=@Url.Action("Edit", new {item.au_id, item.title_id}) role="button">Edit</a>
-                <a class="btn btn-primary" href=@Url.Action("Details", new {item.au_id, item.title_id}) role="button">Details</a>
-                <a class="btn btn-primary" href=@Url.Action("Delete", new {item.au_id, item.title_id}) role="button">Delete</a>
-            </div>
-        </td>
-    </tr>
-}
-
-</table>
+<p>
+    <a class="btn btn-primary" href=@Url.Action("Create") role="button">Add New</a>
+    <table class="table table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th>
+                    <a href=@Url.Action("Index", new {sortOrder = ViewBag.au_lnameSortParm, currentFilter = ViewBag.CurrentFilter}) class="text-white" role="button">
+                        @Html.DisplayNameFor(model => model.authors.au_lname)
+                    </a>
+                </th>
+                <th>
+                    <a href=@Url.Action("Index", new {sortOrder = ViewBag.titleSortParm, currentFilter = ViewBag.CurrentFilter}) class="text-white" role="button">
+                        @Html.DisplayNameFor(model => model.titles.title)
+                    </a>
+                </th>
+                <th>
+                    <a href=@Url.Action("Index", new {sortOrder = ViewBag.au_ordSortParm, currentFilter = ViewBag.CurrentFilter}) class="text-white" role="button">
+                        @Html.DisplayNameFor(model => model.au_ord)
+                    </a>
+                </th>
+                <th>
+                    <a href=@Url.Action("Index", new {sortOrder = ViewBag.royaltyperSortParm, currentFilter = ViewBag.CurrentFilter}) class="text-white" role="button">
+                        @Html.DisplayNameFor(model => model.royaltyper)
+                    </a>
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.authors.au_lname)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.titles.title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.au_ord)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.royaltyper)
+                </td>
+                <td>
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                        <a class="btn btn-primary" href=@Url.Action("Edit", new {item.au_id, item.title_id}) role="button">Edit</a>
+                        <a class="btn btn-primary" href=@Url.Action("Details", new {item.au_id, item.title_id}) role="button">Details</a>
+                        <a class="btn btn-primary" href=@Url.Action("Delete", new {item.au_id, item.title_id}) role="button">Delete</a>
+                    </div>
+                </td>
+            </tr>
+        }
+    </table>
+    <div style="text-align: center">
+        @Html.PagedListPager((IPagedList)Model, page => Url.Action("Index",
+            new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+    </div>
+</p>

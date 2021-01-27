@@ -18,23 +18,23 @@ namespace MVC_Project.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public titles()
         {
+            this.roysched = new HashSet<roysched>();
             this.sales = new HashSet<sales>();
             this.titleauthor = new HashSet<titleauthor>();
         }
-    
+
         [Required]
-        [Display(Name ="title ID")]
+        [Display(Name = "Title ID")]
         [RegularExpression("\\w\\w\\d\\d\\d\\d",
             ErrorMessage = "Title's ID is not valid. (Example: \"BU1234\")")]
         public string title_id { get; set; }
 
         [Required]
-        [Display(Name ="Title")]
+        [Display(Name = "Title")]
         [MaxLength(80)]
         public string title { get; set; }
 
         [Display(Name = "Type")]
-        [Required]
         [MaxLength(12)]
         public string type { get; set; }
 
@@ -54,19 +54,21 @@ namespace MVC_Project.Models
         [Display(Name = "Sales per Year")]
         public Nullable<int> ytd_sales { get; set; }
 
-        [Display(Name ="Notes")]
+        [Display(Name = "Notes")]
+        [DataType(DataType.MultilineText)]
         [MaxLength(200)]
         public string notes { get; set; }
 
-        [Required]
         [Display(Name = "Publication Date")]
+        [DataType(DataType.Date)]
         public System.DateTime pubdate { get; set; }
     
         public virtual publishers publishers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<roysched> roysched { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<sales> sales { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<titleauthor> titleauthor { get; set; }
-        public virtual roysched roysched { get; set; }
     }
 }

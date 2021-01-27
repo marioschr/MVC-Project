@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using MVC_Project.Models;
+using PagedList;
 
 namespace MVC_Project.Controllers
 {
@@ -15,10 +16,51 @@ namespace MVC_Project.Controllers
         private pubsEntities db = new pubsEntities();
 
         // GET: Sales
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder, string currentFilter, int? page)
         {
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.titleSortParm = String.IsNullOrEmpty(sortOrder) ? "title_desc" : "";
+            ViewBag.qtySortParm = sortOrder == "qty" ? "qty_desc" : "qty";
+            ViewBag.paytermsSortParm = sortOrder == "payterms" ? "payterms_desc" : "payterms";
+            ViewBag.stor_nameSortParm = sortOrder == "stor_name" ? "stor_name_desc" : "stor_name";
+            ViewBag.ord_dateSortParm = sortOrder == "ord_date" ? "ord_date_desc" : "ord_date";
+
             var sales = db.sales.Include(s => s.stores).Include(s => s.titles);
-            return View(sales.ToList());
+            switch (sortOrder) {// titlord_date,qty,payterms,stor_name,title
+                case "title_desc":
+                    sales = sales.OrderByDescending(s => s.titles.title);
+                    break;
+                case "qty":
+                    sales = sales.OrderBy(s => s.qty);
+                    break;
+                case "qty_desc":
+                    sales = sales.OrderByDescending(s => s.qty);
+                    break;
+                case "payterms":
+                    sales = sales.OrderBy(s => s.payterms);
+                    break;
+                case "payterms_desc":
+                    sales = sales.OrderByDescending(s => s.payterms);
+                    break;
+                case "ord_date":
+                    sales = sales.OrderBy(s => s.ord_date);
+                    break;
+                case "ord_date_desc":
+                    sales = sales.OrderByDescending(s => s.ord_date);
+                    break;
+                case "stor_name":
+                    sales = sales.OrderBy(s => s.stores.stor_name);
+                    break;
+                case "stor_name_desc":
+                    sales = sales.OrderByDescending(s => s.stores.stor_name);
+                    break;
+                default:
+                    sales = sales.OrderBy(s => s.titles.title);
+                    break;
+            }
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+            return View(sales.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Sales/Details/5
@@ -26,12 +68,12 @@ namespace MVC_Project.Controllers
         {
             if (stor_id == null || ord_num == null || title_id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return View("NotFound");
             }
             sales sales = db.sales.Find(stor_id, ord_num, title_id);
             if (sales == null)
             {
-                return HttpNotFound();
+                return View("NotFound");
             }
             return View(sales);
         }
@@ -66,13 +108,13 @@ namespace MVC_Project.Controllers
         // GET: Sales/Edit/5
         public ActionResult Edit(string stor_id, string ord_num, string title_id) {
             if (ord_num == null) {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return View("NotFound");
             }
             sales sales = db.sales.Find(stor_id, ord_num, title_id);
 
             if (sales == null)
             {
-                return HttpNotFound();
+                return View("NotFound");
             }
             ViewBag.stor_id = new SelectList(db.stores, "stor_id", "stor_name", sales.stor_id);
             ViewBag.title_id = new SelectList(db.titles, "title_id", "title", sales.title_id);
@@ -102,12 +144,12 @@ namespace MVC_Project.Controllers
         {
             if (stor_id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return View("NotFound");
             }
             sales sales = db.sales.Find(stor_id, ord_num, title_id);
             if (sales == null)
             {
-                return HttpNotFound();
+                return View("NotFound");
             }
             return View(sales);
         }

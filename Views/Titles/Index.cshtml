@@ -1,89 +1,116 @@
-﻿@model IEnumerable<MVC_Project.Models.titles>
+﻿@using PagedList
+@using PagedList.Mvc
+@model IEnumerable<MVC_Project.Models.titles>
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Titles";
 }
 
-<h2>Index</h2>
+<h2>Titles</h2>
 
 <p>
-    <a class="btn btn-primary" href=@Url.Action("Create") role="button">Add new Titles</a>
+    <a class="btn btn-primary" href=@Url.Action("Create") role="button">Add new Title</a>
 </p>
-<table class="table">
+<table class="table table-hover">
+    <thead class="thead-dark">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.title)
+            <a href=@Url.Action("Index", new {sortOrder = ViewBag.titleSortParm, currentFilter = ViewBag.CurrentFilter}) class="text-white" role="button">
+                @Html.DisplayNameFor(model => model.title)
+            </a>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.type)
+            <a href=@Url.Action("Index", new {sortOrder = ViewBag.typeSortParm, currentFilter = ViewBag.CurrentFilter}) class="text-white" role="button">
+                @Html.DisplayNameFor(model => model.type)
+            </a>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.price)
+            <a href=@Url.Action("Index", new {sortOrder = ViewBag.priceSortParm, currentFilter = ViewBag.CurrentFilter}) class="text-white" role="button">
+                @Html.DisplayNameFor(model => model.price)
+            </a>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.advance)
+            <a href=@Url.Action("Index", new {sortOrder = ViewBag.advanceSortParm, currentFilter = ViewBag.CurrentFilter}) class="text-white" role="button">
+                @Html.DisplayNameFor(model => model.advance)
+            </a>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.royalty)
+            <a href=@Url.Action("Index", new {sortOrder = ViewBag.royaltySortParm, currentFilter = ViewBag.CurrentFilter}) class="text-white" role="button">
+                @Html.DisplayNameFor(model => model.royalty)
+            </a>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ytd_sales)
+            <a href=@Url.Action("Index", new {sortOrder = ViewBag.ytd_salesSortParm, currentFilter = ViewBag.CurrentFilter}) class="text-white" role="button">
+                @Html.DisplayNameFor(model => model.ytd_sales)
+            </a>
         </th>
         <th>
             @Html.DisplayNameFor(model => model.notes)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.pubdate)
+            <a href=@Url.Action("Index", new {sortOrder = ViewBag.pubdateSortParm, currentFilter = ViewBag.CurrentFilter}) class="text-white" role="button">
+                @Html.DisplayNameFor(model => model.pubdate)
+            </a>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.publishers.pub_name)
+            <a href=@Url.Action("Index", new {sortOrder = ViewBag.pub_nameSortParm, currentFilter = ViewBag.CurrentFilter}) class="text-white" role="button">
+                @Html.DisplayNameFor(model => model.publishers.pub_name)
+            </a>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.roysched.title_id)
+            <a href=@Url.Action("Index", new {sortOrder = ViewBag.pub_nameSortParm, currentFilter = ViewBag.CurrentFilter}) class="text-white" role="button">
+                @Html.DisplayNameFor(model => model.title_id)
+            </a>
         </th>
         <th></th>
     </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.type)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.price)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.advance)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.royalty)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ytd_sales)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.notes)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.pubdate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.publishers.pub_name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.roysched.title_id)
-        </td>
-        <td>
-            <div class="btn-group" role="group" aria-label="Basic example">
-                <a class="btn btn-primary" href=@Url.Action("Edit", new { id = item.title_id }) role="button">Edit</a>
-                <a class="btn btn-primary" href=@Url.Action("Details", new { id = item.title_id }) role="button">Details</a>
-                <a class="btn btn-primary" href=@Url.Action("Delete", new { id = item.title_id }) role="button">Delete</a>
-            </div>
-        </td>
-    </tr>
-}
-
+    </thead>
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.type)
+            </td>
+            <td>
+                $ @Html.DisplayFor(modelItem => item.price)
+            </td>
+            <td>
+                $ @Html.DisplayFor(modelItem => item.advance)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.royalty)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ytd_sales)
+            </td>
+            <td>
+                <div class="overflow-auto" style="max-height: 7em; max-width: 30em">
+                    @Html.DisplayFor(modelItem => item.notes)
+                </div>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.pubdate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.publishers.pub_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.title_id);
+            </td>
+            <td>
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <a class="btn btn-primary" href=@Url.Action("Edit", new {id = item.title_id}) role="button">Edit</a>
+                    <a class="btn btn-primary" href=@Url.Action("Details", new {id = item.title_id}) role="button">Details</a>
+                    <a class="btn btn-primary" href=@Url.Action("Delete", new {id = item.title_id}) role="button">Delete</a>
+                </div>
+            </td>
+        </tr>
+    }
 </table>
+<div style="text-align: center">
+    @Html.PagedListPager((IPagedList)Model, page => Url.Action("Index",
+        new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+</div>

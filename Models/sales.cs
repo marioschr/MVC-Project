@@ -31,6 +31,7 @@ namespace MVC_Project.Models
         
         [Required]
         [Display(Name = "Quantity")]
+        [Range(0,Int16.MaxValue)]
         public short qty { get; set; }
 
         [Required]

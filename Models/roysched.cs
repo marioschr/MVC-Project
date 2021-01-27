@@ -7,16 +7,14 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MVC_Project.Models
-{
+namespace MVC_Project.Models {
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
-    public partial class roysched
-    {
+    public partial class roysched {
 
-        [Display(Name ="Title ID")]
+        [Display(Name = "Title ID")]
         public string title_id { get; set; }
 
         [Display(Name = "Low Range")]
@@ -25,10 +23,13 @@ namespace MVC_Project.Models
         [Display(Name = "High Range")]
         public Nullable<int> hirange { get; set; }
 
-        [Display(Name ="Royalty")]
+        [Display(Name = "Royalty")]
         public Nullable<int> royalty { get; set; }
-    
-        [Display(Name ="Title")]
+
+        [Display(Name = "Title")]
         public virtual titles titles { get; set; }
+
+        public int roysched_id { get; set; }
+
     }
 }

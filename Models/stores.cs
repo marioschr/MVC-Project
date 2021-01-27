@@ -24,15 +24,19 @@ namespace MVC_Project.Models
     
         [Required]
         [Display(Name ="Store ID")]
+        [MaxLength(4)]
         public string stor_id { get; set; }
 
         [Display(Name ="Store Name")]
+        [MaxLength(40)]
         public string stor_name { get; set; }
 
         [Display(Name ="Store Address")]
+        [MaxLength(40)]
         public string stor_address { get; set; }
 
         [Display(Name ="City")]
+        [MaxLength(20)]
         public string city { get; set; }
 
         [RegularExpression("\\w\\w", ErrorMessage ="State is not valid. (Example: \"LA\")")]
@@ -40,6 +44,7 @@ namespace MVC_Project.Models
         public string state { get; set; }
 
         [Display(Name ="Zip Code")]
+        [RegularExpression(".....", ErrorMessage = "Zip Code is not valid. (Example: \"18534\")")]
         public string zip { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
