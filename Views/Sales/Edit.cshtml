@@ -1,18 +1,17 @@
 ﻿@model MVC_Project.Models.sales
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Edit Sale";
 }
 
+<hr style="border-color: white" />
 <h2>Edit this Sale</h2>
+<hr style="border-color: white" />
 
-
-@using (Html.BeginForm())
-{
+@using (Html.BeginForm()) {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
-        <hr style="border-color: white" />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.stor_id)
         @Html.HiddenFor(model => model.ord_num)
@@ -45,7 +44,7 @@
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <a class="btn btn-primary" href=@Url.Action("Index") role="button">Back to List</a>
-                <input type="submit" value="Save" class="btn btn-primary"/>
+                <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </div>
     </div>

@@ -56,7 +56,7 @@ namespace MVC_Project.Controllers
         }
 
         // GET: Royscheds/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(int? id)
         {
             if (id == null)
             {
@@ -96,7 +96,7 @@ namespace MVC_Project.Controllers
         }
 
         // GET: Royscheds/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int? id)
         {
             if (id == null)
             {
@@ -129,7 +129,7 @@ namespace MVC_Project.Controllers
         }
 
         // GET: Royscheds/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int? id)
         {
             if (id == null)
             {
