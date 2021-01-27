@@ -31,7 +31,7 @@ namespace MVC_Project.Controllers
             {
                 salesList = db.sales.Where(m => m.ord_date >= datefrom && m.ord_date <= dateto).ToList();
             }
-            else if(Request.QueryString["dateFrom"] != null && Request.QueryString["dateForm"] != "")
+            else if (Request.QueryString["dateFrom"] != null && Request.QueryString["dateForm"] != "")
             {
                 salesList = db.sales.Where(m => m.ord_date >= datefrom).ToList();
             }
@@ -60,10 +60,10 @@ namespace MVC_Project.Controllers
                                      from ta in table1.DefaultIfEmpty()
                                      join sa in salesList on ta.title_id equals sa.title_id into table2
                                      from sa in table2.DefaultIfEmpty()
-                                     select new SearchModelBOne { authorsList = aut, titleauthorList = ta, salesList = sa };*/
+                                     select new SearchModelBOne { authorsList = aut, titleauthorList = ta, salesList = sa };
 
 
-            /*string number_X = Request.QueryString["numberX"];
+            string number_X = Request.QueryString["numberX"];
             if (number_X != null && number_X != "")
             {
                 //list2 = db.authors.Where(m => m.au_lname.StartsWith(lastName));
@@ -80,10 +80,26 @@ namespace MVC_Project.Controllers
             return View();
         }
 
+        private const string Sql = "select t1.au_id, t1.au_lname, SUM(t1.price) as price from authors as t1 group by t1.id, t1.product";
         // GET: Search/Create
         public ActionResult Create()
         {
-            return View();
+            /*string query = "SELECT authors.au_id, authors.au_lname, authors.au_fname, authors.phone, authors.address, authors.city, authors.state, authors.zip, authors.contract, SUM(sales.ord_num) AS sum_ord "
+                + "FROM authors, sales, titleauthor "
+                + "WHERE authors.au_id = titleauthor.au_id " +
+                "AND titleauthor.title_id = sales.title_id"
+                + "GROUP BY authors.au_id, authors.au_lname, authors.au_fname, authors.phone, authors.address, authors.city, authors.state, authors.zip, authors.contract";*/
+
+            string query = "SELECT SUM([sales].[qty]) AS all_sales, [authors].[au_id], [authors].[au_fname], [authors].[au_lname], [authors].[phone], [authors].[address], " +
+                "[authors].[city], [authors].[state], [authors].[zip], [authors].[contract] " +
+                "FROM[dbo].[sales],[dbo].[authors],[dbo].[titleauthor] " +
+                "WHERE[titleauthor].[au_id] = [authors].[au_id] AND[titleauthor].[title_id] = [sales].[title_id] " +
+                "GROUP BY[authors].[au_id], [authors].[au_fname], [authors].[au_lname], [authors].[phone], [authors].[address], " +
+                "[authors].[city], [authors].[state], [authors].[zip], [authors].[contract]";
+
+            IEnumerable<SearchModelBOne> data = db.Database.SqlQuery<SearchModelBOne>(query);
+
+            return View(data.ToList());
         }
 
         // POST: Search/Create
