@@ -36,7 +36,6 @@ namespace MVC_Project.Models
         [MaxLength(20)]
         public string au_fname { get; set; }
 
-        [Required]
         [Display(Name = "Phone Number")]
         [MaxLength(12)]
         public string phone { get; set; }

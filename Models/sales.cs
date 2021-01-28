@@ -22,6 +22,7 @@ namespace MVC_Project.Models
 
         [Required]
         [Display(Name ="Order Number")]
+        [MaxLength(20)]
         public string ord_num { get; set; }
 
         [Required]
@@ -36,6 +37,7 @@ namespace MVC_Project.Models
 
         [Required]
         [Display(Name ="Payment Terms")]
+        [MaxLength(12)]
         public string payterms { get; set; }
 
         [Required]

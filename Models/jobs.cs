@@ -25,14 +25,16 @@ namespace MVC_Project.Models
         [Required]
         [Range(0, Int16.MaxValue)]
         public short job_id { get; set; }
+
         [Display(Name = "Job Description")]
-        [Required]
         [MaxLength(50)]
         public string job_desc { get; set; }
+
         [Display(Name = "Min Level")]
         [Required]
         [Range(10,250)]
         public byte min_lvl { get; set; }
+
         [Display(Name = "Min Level")]
         [Required]
         [Range(10, 250)]

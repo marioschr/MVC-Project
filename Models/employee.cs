@@ -19,28 +19,34 @@ namespace MVC_Project.Models
         [RegularExpression(@"([A-Z][A-Z][A-Z][1-9][0-9][0-9][0-9][FM])|([A-Z]-[A-Z][1-9][0-9][0-9][0-9][0-9][FM])", ErrorMessage = "Employee ID is not valid. (Examples: \"ABC1234M\",\"A-B12345F\")")]
         [Required]
         public string emp_id { get; set; }
+
         [Display(Name = "First Name")]
         [Required]
         [MaxLength(20)]
         public string fname { get; set; }
+
         [Display(Name = "Middle Initial")]
         [MaxLength(1)]
         public string minit { get; set; }
+
         [Display(Name = "Last Name")]
         [Required]
         [MaxLength(30)]
         public string lname { get; set; }
+
         [Display(Name = "Job ID")]
-        [Required]
         [Range(0,Int16.MaxValue)]
         public short job_id { get; set; }
+
         [Display(Name = "Job Level")]
         [Range(10, 250)]
         public Nullable<byte> job_lvl { get; set; }
+
         [Display(Name = "Publisher's ID")]
         [Required]
         [MaxLength(4)]
         public string pub_id { get; set; }
+
         [Display(Name = "Hire Date")]
         [Required]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
